@@ -1,0 +1,22 @@
+{
+    "name": "panychek/moex",
+    "type": "library",
+    "description": "Moscow Exchange ISS Client",
+    "keywords": ["moex", "moscow", "exchange", "micex"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Igor Panychek",
+            "email": "panychek@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Panychek\\MoEx\\": "src/"
+        }
+    }
+}
