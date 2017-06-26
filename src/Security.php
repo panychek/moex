@@ -59,8 +59,6 @@ class Security extends AbstractEntry
             throw new Exception\InvalidArgumentException($message);
         }
         
-        $this->setClient();
-        
         $code = $this->getCodeByString($name);
         $this->setId($code);
     }
@@ -108,7 +106,7 @@ class Security extends AbstractEntry
     private function loadInfo()
     {
         if(empty($this->getProperties())) { // haven't been loaded yet
-            $security = $this->client->getSecurity($this->getId());
+            $security = Client::getInstance()->getSecurity($this->getId());
         
             if (empty($security)) {
                 $message = sprintf('Security "%s" not found', $this->getId());
@@ -208,7 +206,7 @@ class Security extends AbstractEntry
             $security_code = substr($name, 1);
             
         } else {
-            $security = $this->client->findSecurity($name, 1);
+            $security = Client::getInstance()->findSecurity($name, 1);
             
             if (empty($security['securities'])) {
                 $message = sprintf('No securities matching "%s"', $name);
@@ -232,7 +230,7 @@ class Security extends AbstractEntry
         $engine = $this->getEngine();
         $market = $this->getMarket();
         
-        $market_data = $this->client->getMarketData($engine->getId(), $market->getId(), $this->getId());
+        $market_data = Client::getInstance()->getMarketData($engine->getId(), $market->getId(), $this->getId());
         
         if (empty($market_data['marketdata'])) {
             $message = 'No available data';
@@ -277,7 +275,7 @@ class Security extends AbstractEntry
      */
     public function getIndices()
     {
-        $indices = $this->client->getSecurityIndices($this->getId());
+        $indices = Client::getInstance()->getSecurityIndices($this->getId());
         return (!empty($indices['indices'])) ? $indices['indices'] : array();
     }
     
@@ -293,7 +291,7 @@ class Security extends AbstractEntry
         $market = $this->getMarket();
         $board = $this->getBoard();
         
-        $dates = $this->client->getSecurityDates($engine->getId(), $market->getId(), $board->getId(), $this->getId());
+        $dates = Client::getInstance()->getSecurityDates($engine->getId(), $market->getId(), $board->getId(), $this->getId());
         
         if (empty($dates['dates'])) {
             $message = sprintf('No available data for "%s"', $this->getId());
@@ -378,7 +376,7 @@ class Security extends AbstractEntry
         $market = $this->getMarket();
         $board = $this->getBoard();
         
-        $data = $this->client->getHistoricalQuotes(
+        $raw_data = Client::getInstance()->getHistoricalQuotes(
             $engine->getId(),
             $market->getId(),
             $board->getId(),
@@ -386,6 +384,20 @@ class Security extends AbstractEntry
             $from,
             $to
         );
+        
+        $fields = array(
+            'open', 'high', 'low', 'close', 'volume'
+        );
+        
+        $data = array();
+        foreach ($raw_data['history'] as $k => $v) {
+            $row = array();
+            foreach ($fields as $field) {
+                $row[$field] = $v[strtoupper($field)];
+            }
+            
+            $data[$v['TRADEDATE']] = $row;
+        }
         
         if ($from && $to) { // empty values for the new dates
             $interval = \DateInterval::createFromDateString('1 day');

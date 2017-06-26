@@ -1,0 +1,20 @@
+{
+"indices": {
+    "metadata": {
+        "SECID": {"type": "string", "bytes": 36, "max_size": 0},
+        "SHORTNAME": {"type": "string", "bytes": 765, "max_size": 0},
+        "FROM": {"type": "date", "bytes": 10, "max_size": 0},
+        "TILL": {"type": "date", "bytes": 10, "max_size": 0}
+    },
+    "columns": ["SECID", "SHORTNAME", "FROM", "TILL"], 
+    "data": [
+        ["MICEX10INDEX", "ММВБ 10", "2016-01-12", "2017-06-23"],
+        ["MICEXBMI", "Широкий рынок", "2013-03-18", "2017-06-23"],
+        ["MICEXFNL", "Финансы", "2013-03-18", "2017-06-23"],
+        ["MICEXINDEXCF", "Индекс ММВБ", "2013-03-18", "2017-06-23"],
+        ["MICEXMC", "MICEX MC", "2013-04-25", "2015-03-01"],
+        ["RTSFN", "Финансы в $", "2016-01-26", "2016-01-26"],
+        ["RTSI", "Индекс РТС", "2016-01-26", "2016-01-26"],
+        ["RUBMI", "Широкий рынок в $", "2016-01-26", "2016-01-26"]
+    ]
+}}

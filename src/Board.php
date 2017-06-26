@@ -46,7 +46,6 @@ class Board extends AbstractEntry
             throw new Exception\InvalidArgumentException($message);
         }
         
-        $this->setClient();
         $this->setId($id);
         $this->setEngine($engine_id);
         $this->setMarket($market_id);
@@ -105,7 +104,7 @@ class Board extends AbstractEntry
             $engine = $this->getEngine();
             $market = $this->getMarket();
             
-            $board = $this->client->getBoard($engine->getId(), $market->getId(), $this->getId());
+            $board = Client::getInstance()->getBoard($engine->getId(), $market->getId(), $this->getId());
             
             if (empty($board['board'])) {
                 $message = sprintf('Board "%s" not found', $this->getId());

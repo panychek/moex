@@ -1,0 +1,54 @@
+{
+"description": {
+    "columns": ["name", "title", "value", "type", "sort_order", "is_hidden", "precision"], 
+    "data": [
+        ["SECID", "Security code", "MOEX", "string", 1, 0, null],
+        ["NAME", "Full name", "MoscowExchange", "string", 2, 0, null],
+        ["SHORTNAME", "Short name", "MoscowExchange", "string", 3, 0, null],
+        ["ISIN", "ISIN Code", "RU000A0JR4A1", "string", 4, 0, null],
+        ["REGNUMBER", "State registration  number", "1-05-08443-H", "string", 5, 0, null],
+        ["ISSUESIZE", "Issue Size", "2276401458", "number", 6, 0, 0],
+        ["FACEVALUE", "Face value", "1", "number", 7, 0, 2],
+        ["FACEUNIT", "Face value currency", "SUR", "string", 8, 0, null],
+        ["ISSUEDATE", "Date of listing", "2013-02-04", "date", 9, 0, null],
+        ["LATNAME", "Full name in English", "MoscowExchange", "string", 10, 1, null],
+        ["LISTLEVEL", "List level", "1", "number", 32, 0, 0],
+        ["ISQUALIFIEDINVESTORS", "Qualified investors", "0", "number", 34, 0, null],
+        ["TYPENAME", "Security type", "Common stock", "string", 71, 0, null],
+        ["GROUP", "Instrument type code", "stock_shares", "string", 72, 1, null],
+        ["TYPE", "Security type", "common_share", "string", 10000, 1, null],
+        ["GROUPNAME", "Instrument type", "Stocks", "string", 10011, 1, null],
+        ["EMITTER_ID", "Emitter code", "2624", "number", 11000, 1, null]
+    ]
+},
+"boards": {
+    "columns": ["secid", "boardid", "title", "board_group_id", "market_id", "market", "engine_id", "engine", "is_traded", "decimals", "history_from", "history_till", "listed_from", "listed_till", "is_primary"], 
+    "data": [
+        ["MOEX", "TQBR", "T+: Stocks, DRs", 57, 1, "shares", 1, "stock", 1, 2, "2013-04-04", "2017-06-26", "2013-04-04", "2017-06-26", 1],
+        ["MOEX", "TQLV", "T+: V stocks, DRs", 57, 1, "shares", 1, "stock", 0, 2, "2013-03-25", "2013-04-03", "2013-03-25", "2013-04-03", 0],
+        ["MOEX", "EQBR", "Main market: A1 stocks", 6, 1, "shares", 1, "stock", 0, 2, "2013-04-04", "2013-08-30", "2013-04-04", "2013-08-30", 0],
+        ["MOEX", "EQLV", "Main market: V stocks", 6, 1, "shares", 1, "stock", 0, 2, "2013-02-04", "2013-04-03", "2013-02-04", "2013-04-03", 0],
+        ["MOEX", "SOTC", "Off-Exchange Trades", 71, 29, "otc", 1, "stock", 1, 5, "2014-02-24", "2017-06-23", "2013-02-15", "2017-06-26", 0],
+        ["MOEX", "SMAL", "T+ Odd lot trading (stocks)", 21, 1, "shares", 1, "stock", 1, 2, "2013-06-14", "2017-06-26", "2013-06-11", "2017-06-26", 0],
+        ["MOEX", "EQDP", "Dark Pool Stocks", 42, 1, "shares", 1, "stock", 1, 2, "2013-05-21", "2017-06-26", "2013-05-21", "2017-06-26", 0],
+        ["MOEX", "PTEQ", "Neg. deals with CCP: A1 stocks, RDRs", 59, 4, "ndm", 1, "stock", 1, 2, "2013-05-03", "2017-06-26", "2013-04-04", "2017-06-26", 0],
+        ["MOEX", "PTLV", "Neg. deals with CCP: V stocks, DRs", 59, 4, "ndm", 1, "stock", 0, 2, "2013-04-03", "2013-04-03", "2013-03-25", "2013-04-03", 0],
+        ["MOEX", "MXBD", "MOEX Board", 72, 33, "moexboard", 1, "stock", 0, 4, "2015-08-03", "2017-06-26", "2015-08-03", "2017-06-26", 0],
+        ["MOEX", "CLMR", "Classica: Market operation", 43, 25, "classica", 1, "stock", 0, 2, "2013-02-15", "2015-07-31", "2013-02-14", "2015-07-31", 0],
+        ["MOEX", "CLAD", "Classica: Targeted operation", 44, 25, "classica", 1, "stock", 0, 2, "2013-02-15", "2013-09-06", "2013-02-15", "2013-09-06", 0],
+        ["MOEX", "PSEQ", "Neg. deals: A1 stocks, DRs", 8, 4, "ndm", 1, "stock", 1, 2, "2013-04-19", "2017-06-09", "2013-04-04", "2017-06-26", 0],
+        ["MOEX", "PSLV", "Neg. deals: V stocks, DRs", 8, 4, "ndm", 1, "stock", 0, 2, "2013-02-15", "2013-03-12", "2013-02-04", "2013-04-03", 0],
+        ["MOEX", "PSAU", "Issuance: Targeted requests", 8, 4, "ndm", 1, "stock", 0, 2, "2013-02-04", "2013-02-15", "2013-02-04", "2013-02-15", 0],
+        ["MOEX", "RPMA", "REPO with stocks", 95, 3, "repo", 1, "stock", 1, 4, "2013-02-15", "2017-06-26", "2013-02-15", "2017-06-26", 0],
+        ["MOEX", "RPUA", "REPO with stocks (USD settle)", 94, 3, "repo", 1, "stock", 1, 4, null, null, "2013-09-02", "2017-06-26", 0],
+        ["MOEX", "EQRD", "REPO with CCP 1 day USD", 92, 27, "ccp", 1, "stock", 1, 4, null, null, "2015-06-01", "2017-06-26", 0],
+        ["MOEX", "EQRE", "REPO with CCP 1 day EUR", 93, 27, "ccp", 1, "stock", 1, 4, null, null, "2015-06-01", "2017-06-26", 0],
+        ["MOEX", "EQWP", "REPO with CCP 7 day", 76, 27, "ccp", 1, "stock", 1, 3, "2015-09-15", "2017-06-23", "2015-06-01", "2017-06-26", 0],
+        ["MOEX", "EQWD", "REPO with CCP 7 day USD", 78, 27, "ccp", 1, "stock", 1, 4, null, null, "2016-01-26", "2017-06-26", 0],
+        ["MOEX", "EQWE", "REPO with CCP 7 day EUR", 79, 27, "ccp", 1, "stock", 1, 4, null, null, "2016-01-26", "2017-06-26", 0],
+        ["MOEX", "EQRP", "REPO with CCP 1 day", 50, 27, "ccp", 1, "stock", 1, 3, "2013-09-04", "2017-06-26", "2013-09-02", "2017-06-26", 0],
+        ["MOEX", "PSRP", "REPO with CCP Targeted", 65, 27, "ccp", 1, "stock", 1, 3, "2013-07-22", "2017-06-26", "2013-07-08", "2017-06-26", 0],
+        ["MOEX", "PSRD", "REPO with CCP Negdeal USD", 91, 27, "ccp", 1, "stock", 1, 4, null, null, "2015-06-01", "2017-06-26", 0],
+        ["MOEX", "PSRE", "REPO with CCP Negdeal EUR", 96, 27, "ccp", 1, "stock", 1, 4, null, null, "2015-06-01", "2017-06-26", 0]
+    ]
+}}

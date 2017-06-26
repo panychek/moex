@@ -12,11 +12,6 @@ namespace Panychek\MoEx;
 abstract class AbstractEntry
 {
     /**
-     * @var null|\Panychek\MoEx\Client
-     */
-    protected $client = null;
-    
-    /**
      * @var string
      */
     protected $id = '';
@@ -25,26 +20,6 @@ abstract class AbstractEntry
      * @var array
      */
     private $properties = array();
-    
-    /**
-     * Set the client
-     *
-     * @return void
-     */
-    protected function setClient()
-    {
-        $this->client = Client::getInstance();
-    }
-    
-    /**
-     * Get the client
-     *
-     * @return \Panychek\MoEx\Client
-     */
-    public function getClient()
-    {
-        return $this->client;
-    }
     
     /**
      * Set the id
@@ -116,18 +91,11 @@ abstract class AbstractEntry
      * Set the language
      *
      * @param  string $lang
-     * @throws Exception\InvalidArgumentException for any language except Russian and English
      * @return void
      */
     public function setLanguage($lang)
     {
-        $langs = array('ru', 'en');
-        if (!in_array($lang, $langs)) {
-            $message = 'Unsupported language. Available languages: "ru" and "en"';
-            throw new Exception\InvalidArgumentException($message);
-        }
-        
-        $this->client->setLanguage($lang);
+        Client::getInstance()->setLanguage($lang);
     }
     
     /**
@@ -137,7 +105,7 @@ abstract class AbstractEntry
      */
     public function getLanguage()
     {
-        return $this->client->getLanguage();
+        return Client::getInstance()->getLanguage();
     }
     
     

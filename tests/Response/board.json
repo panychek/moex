@@ -1,0 +1,7 @@
+{
+"board": {
+    "columns": ["id", "board_group_id", "boardid", "title"], 
+    "data": [
+        [129, 57, "TQBR", "Т+ Акции и ДР"]
+    ]
+}}

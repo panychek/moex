@@ -17,16 +17,6 @@ abstract class Engine extends AbstractEntry
     private static $instances = array();
     
     /**
-     * Constructor
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->setClient();
-    }
-    
-    /**
      * Get an instance
      *
      * @param  string $id Engine ID, e.g. 'stock', 'commodity', etc.
@@ -75,7 +65,7 @@ abstract class Engine extends AbstractEntry
     private function loadInfo()
     {
         if(empty($this->getProperties())) { // haven't been loaded yet
-            $engine = $this->client->getEngine($this->getId());
+            $engine = Client::getInstance()->getEngine($this->getId());
             
             if (empty($engine)) {
                 $message = sprintf('Engine "%s" not found', $this->getId());
@@ -95,7 +85,7 @@ abstract class Engine extends AbstractEntry
      */
     public function getMarkets()
     {
-        $markets = $this->client->getMarketList($this->getId());
+        $markets = Client::getInstance()->getMarketList($this->getId());
         
         if (empty($markets['markets'])) {
             $message = 'No available data';

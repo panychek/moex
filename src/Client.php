@@ -28,6 +28,11 @@ class Client
     private $client = null;
     
     /**
+     * @var array
+     */
+    private static $extra_options = array();
+    
+    /**
      * @var int Total number of successful requests made to the server
      */
     private $counter = 0;
@@ -51,6 +56,10 @@ class Client
             'base_uri' => self::API_URL
         );
         
+        if (isset(self::$extra_options)) {
+            $options = array_merge($options, self::$extra_options);
+        }
+        
         $this->client = new \GuzzleHttp\Client($options);
     }
     
@@ -69,13 +78,42 @@ class Client
     }
     
     /**
+     * Destroy an instance (for unit tests)
+     * 
+     * @return void
+     */
+    public static function destroyInstance() {
+        if (isset(self::$instance)) {
+            self::$instance = null;
+        }
+    }
+    
+    /**
+     * Set an option for the Guzzle client (e.g. a mock handler for unit tests)
+     * 
+     * @param  string $option
+     * @param  mixed  $value
+     * @return void
+     */
+    public static function setExtraOption($option, $value) {
+        self::$extra_options[$option] = $value;
+    }
+    
+    /**
      * Set the language
      *
-     * @param string $lang
+     * @param  string $lang
+     * @throws Exception\InvalidArgumentException for any language except Russian and English
      * @return void
      */
     public function setLanguage($lang)
     {
+        $langs = array('ru', 'en');
+        if (!in_array($lang, $langs)) {
+            $message = 'Unsupported language. Available languages: "ru" and "en"';
+            throw new Exception\InvalidArgumentException($message);
+        }
+        
         $this->lang = $lang;
     }
     
@@ -116,7 +154,7 @@ class Client
      * @throws Exception\DataException if the request fails
      * @return string
      */
-    private function request(string $relative_uri, array $params = array())
+    protected function request(string $relative_uri, array $params = array())
     {
         try {
             $uri = $relative_uri . '.json';
@@ -131,7 +169,7 @@ class Client
                 'query' => $params
             );
             
-            $response = $this->client->get($uri, $options);
+            $response = $this->doRequest($uri, $options);
             
             $this->increaseCounter();
             
@@ -144,6 +182,17 @@ class Client
         $contents = $body->getContents();
         
         return $contents;
+    }
+    
+    /**
+     * Make a request through the Guzzle client
+     * 
+     * @param  string $uri
+     * @param  array  $options
+     * @return void
+     */
+    protected function doRequest(string $uri, array $options) {
+        return $this->client->get($uri, $options);
     }
 
     /**
@@ -210,14 +259,7 @@ class Client
     public function getEngineList()
     {
         $uri = 'engines';
-        $raw_data = $this->getData($uri);
-        
-        $data = array();
-        foreach ($raw_data['engines'] as $v) {
-            $data[$v['name']] = $v['title'];
-        }
-        
-        return $data;
+        return $this->getData($uri);
     }
     
     /**
@@ -379,23 +421,7 @@ class Client
         }
         
         $start = 0;
-        $raw_data = $this->fetchHistoryPage($uri, $params, $start);
-        
-        $fields = array(
-            'open', 'high', 'low', 'close', 'volume'
-        );
-        
-        $data = array();
-        foreach ($raw_data as $k => $v) {
-            $row = array();
-            foreach ($fields as $field) {
-                $row[$field] = $v[strtoupper($field)];
-            }
-            
-            $data[$v['TRADEDATE']] = $row;
-        }
-        
-        return $data;
+        return $this->fetchHistoryPage($uri, $params, $start);
     }
     
     /**
@@ -410,18 +436,18 @@ class Client
     {
         $params['start'] = $start;
         
-        $raw_data = $this->getData($uri, $params);
+        $data = $this->getData($uri, $params);
         
-        if (empty($raw_data)) {
+        if (empty($data)) {
             return array();
         }
         
-        if (count($raw_data['history']) == $params['limit']) { // keep going
+        if (count($data['history']) == $params['limit']) { // keep going
             $next_page = $this->fetchHistoryPage($uri, $params, $start + $params['limit']);
-            $raw_data['history'] = array_merge($raw_data['history'], $next_page); 
+            $data['history'] = array_merge($data['history'], $next_page['history']); 
         }
         
-        return $raw_data['history'];
+        return $data;
     }
     
     /**

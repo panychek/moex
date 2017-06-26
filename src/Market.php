@@ -43,7 +43,6 @@ class Market extends AbstractEntry
             throw new Exception\InvalidArgumentException($message);
         }
         
-        $this->setClient();
         $this->setId($id);
         $this->setEngine($engine_id);
     }
@@ -73,7 +72,7 @@ class Market extends AbstractEntry
     private function loadInfo()
     {
         if(empty($this->boards)) { // haven't been loaded yet
-            $market = $this->client->getMarket($this->getEngine()->getId(), $this->getId());
+            $market = Client::getInstance()->getMarket($this->getEngine()->getId(), $this->getId());
             
             if (empty($market)) {
                 $message = sprintf('Market "%s" not found', $this->getId());

@@ -1,0 +1,23 @@
+{
+"securities": {
+    "columns": ["SECID", "BOARDID", "SHORTNAME", "PREVPRICE", "LOTSIZE", "FACEVALUE", "STATUS", "BOARDNAME", "DECIMALS", "SECNAME", "REMARKS", "MARKETCODE", "INSTRID", "SECTORID", "MINSTEP", "PREVWAPRICE", "FACEUNIT", "PREVDATE", "ISSUESIZE", "ISIN", "LATNAME", "REGNUMBER", "PREVLEGALCLOSEPRICE", "PREVADMITTEDQUOTE", "CURRENCYID", "SECTYPE", "LISTLEVEL"], 
+    "data": [
+        ["MOEX", "SMAL", "МосБиржа", 107.62, 1, 1, "A", "Т+ Неполные лоты (акции)", 2, "ПАО Московская Биржа", null, "FNDT", "EQIN", "EQ-N", 0.01, 105.23, "SUR", "2017-06-22", 2276401458, "RU000A0JR4A1", "MoscowExchange", "1-05-08443-H", null, null, "SUR", "1", 1],
+        ["MOEX", "EQDP", "МосБиржа", null, 10, 1, "A", "Крупные пакеты - Акции", 2, "ПАО Московская Биржа", null, "FOND", "EQIN", "EQ-N", 0.01, null, "SUR", "2017-06-22", 2276401458, "RU000A0JR4A1", "MoscowExchange", "1-05-08443-H", null, null, "SUR", "1", 1],
+        ["MOEX", "TQBR", "МосБиржа", 105.57, 10, 1, "A", "Т+ Акции и ДР", 2, "ПАО Московская Биржа", null, "FNDT", "EQIN", "EQ-N", 0.01, 105.23, "SUR", "2017-06-22", 2276401458, "RU000A0JR4A1", "MoscowExchange", "1-05-08443-H", 105.57, 105.57, "SUR", "1", 1]
+    ]
+},
+"marketdata": {
+    "columns": ["SECID", "BOARDID", "BID", "BIDDEPTH", "OFFER", "OFFERDEPTH", "SPREAD", "BIDDEPTHT", "OFFERDEPTHT", "OPEN", "LOW", "HIGH", "LAST", "LASTCHANGE", "LASTCHANGEPRCNT", "QTY", "VALUE", "VALUE_USD", "WAPRICE", "LASTCNGTOLASTWAPRICE", "WAPTOPREVWAPRICEPRCNT", "WAPTOPREVWAPRICE", "CLOSEPRICE", "MARKETPRICETODAY", "MARKETPRICE", "LASTTOPREVPRICE", "NUMTRADES", "VOLTODAY", "VALTODAY", "VALTODAY_USD", "ETFSETTLEPRICE", "TRADINGSTATUS", "UPDATETIME", "ADMITTEDQUOTE", "LASTBID", "LASTOFFER", "LCLOSEPRICE", "LCURRENTPRICE", "MARKETPRICE2", "NUMBIDS", "NUMOFFERS", "CHANGE", "TIME", "HIGHBID", "LOWOFFER", "PRICEMINUSPREVWAPRICE", "OPENPERIODPRICE", "SEQNUM", "SYSTIME", "CLOSINGAUCTIONPRICE", "CLOSINGAUCTIONVOLUME", "ISSUECAPITALIZATION", "ISSUECAPITALIZATION_UPDATETIME", "ETFSETTLECURRENCY", "VALTODAY_RUR"], 
+    "data": [
+        ["MOEX", "SMAL", null, null, null, null, 0, null, null, 105, 105, 105, 105, 0, 0, 3, 315.00, 5.24, 107.01, -0.23, 1.69, 1.78, null, null, 105.23, -2.43, 1, 3, 315, 5, null, "N", "18:50:05", null, null, null, null, null, null, null, null, -2.62, "17:32:15", null, null, -0.23, null, 363784, "2017-06-23 19:05:06", null, null, 243119675714.4, "18:45:51", null, 315],
+        ["MOEX", "EQDP", null, null, null, null, 0, null, null, null, null, null, null, 0, 0, 0, 0.00, 0, null, 0, 0, 0, null, null, 105.23, 0, 0, 0, 0, 0, null, "N", "19:12:08", null, null, null, null, null, null, null, null, null, "19:12:08", null, null, null, null, 365349, "2017-06-23 19:27:09", null, null, 243119675714.4, "18:45:51", null, 0],
+        ["MOEX", "TQBR", null, null, null, null, 0, null, null, 105.97, 105.32, 107.88, 106.8, -0.29, -0.27, 100, 106800.00, 1775.61, 107.01, 1.57, 1.69, 1.78, null, 107.01, 105.23, 1.17, 24896, 5745610, 614837254, 10222039, null, "N", "19:12:47", 106.8, null, null, 106.8, 106.8, 107.01, null, null, 1.23, "18:49:47", null, null, 1.57, 105.97, 365399, "2017-06-23 19:27:47", 106.8, 68470, 243119675714.4, "18:45:51", null, 614837254]
+    ]
+},
+"dataversion": {
+    "columns": ["version", "seqnum"], 
+    "data": [
+        [5082, 370051]
+    ]
+}}

@@ -1,0 +1,13 @@
+{
+"capitalization": {
+    "columns": ["CAPITALIZATION", "TRADEDATE"], 
+    "data": [
+        [32370425050077.613, "2017-06-23"]
+    ]
+},
+"issuecapitalization": {
+    "columns": ["ISSUECAPITALIZATION", "UPDATETIME"], 
+    "data": [
+        [32596809468555.812, "2017-06-23 18:49:59"]
+    ]
+}}

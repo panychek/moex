@@ -24,7 +24,7 @@ class StockEngine extends Engine
      */
     public function getCapitalization()
     {
-        $data = $this->client->getCapitalization();
+        $data = Client::getInstance()->getCapitalization();
         
         if (empty($data['issuecapitalization'][0]['ISSUECAPITALIZATION'])) {
             $message = 'No available data';
