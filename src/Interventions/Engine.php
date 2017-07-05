@@ -7,12 +7,12 @@
  * @author    Igor Panychek panychek@gmail.com
  */
 
-namespace Panychek\MoEx;
+namespace Panychek\MoEx\Interventions;
 
-class StateEngine extends Engine
+class Engine extends \Panychek\MoEx\Engine
 {
     /**
      * @var string
      */
-    protected $id = 'state';
+    protected $id = 'interventions';    
 }

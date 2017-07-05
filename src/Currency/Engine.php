@@ -7,9 +7,9 @@
  * @author    Igor Panychek panychek@gmail.com
  */
 
-namespace Panychek\MoEx;
+namespace Panychek\MoEx\Currency;
 
-class CurrencyEngine extends Engine
+class Engine extends \Panychek\MoEx\Engine
 {
     /**
      * @var string

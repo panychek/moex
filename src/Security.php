@@ -32,20 +32,6 @@ class Security extends AbstractEntry
     private $history_data = array();
     
     /**
-     * @var array
-     */
-    private $mappings = array(
-        'lastprice' => 'last',
-        'openingprice' => 'open',
-        'closingprice' => 'lcloseprice',
-        'dailylow' => 'low',
-        'dailyhigh' => 'high',
-        'volume' => 'valtoday',
-        'dailychange' => 'change',
-        'dailypercentagechange' => 'lasttoprevprice'
-    );
-    
-    /**
      * Constructor
      * 
      * @param  string $name
@@ -82,14 +68,19 @@ class Security extends AbstractEntry
                 return $this->getProperties()[$property];                
             }
             
-            if (isset($this->mappings[$property])) { // market data
+            $mapped_property = $this->getMarket()->getMappedProperty($property);
+            if ($mapped_property) {
+                return $this->getProperties()[$mapped_property];
+            }
+            
+            $market_data_getter = $this->getMarket()->getMarketDataGetter($property);
+            if ($market_data_getter) { // market data
 
-                if (empty($this->getMarketData())) {
+                if (empty($this->getMarketData())) { // haven't been loaded yet
                     $this->setMarketData();
                 }
-
-                $field = $this->mappings[$property];
-                return $this->getMarketData()[$field];
+                
+                return $market_data_getter($this->getMarketData(), $arguments);
             }
         }
         
@@ -253,7 +244,7 @@ class Security extends AbstractEntry
      *
      * @return array
      */
-    private function getMarketData()
+    public function getMarketData()
     {
         return $this->market_data;
     }
@@ -276,7 +267,18 @@ class Security extends AbstractEntry
     public function getIndices()
     {
         $indices = Client::getInstance()->getSecurityIndices($this->getId());
-        return (!empty($indices['indices'])) ? $indices['indices'] : array();
+        
+        $data = array();
+        if (!empty($indices['indices'])) {
+            foreach ($indices['indices'] as $row) {
+                $index = new Security('#' . $row['SECID']);
+                $index->setProperties($row);
+                
+                $data[] = $index;
+            }
+        }
+        
+        return $data;
     }
     
     /**
@@ -323,7 +325,7 @@ class Security extends AbstractEntry
                 
                 if (is_string($date)) {
                     try {
-                        $timezone = new \DateTimeZone('Europe/Moscow');
+                        $timezone = new \DateTimeZone(Client::TIMEZONE);
                         $args[$i] = new \DateTime($date, $timezone);
                         
                     } catch (\Exception $e) {
@@ -393,7 +395,11 @@ class Security extends AbstractEntry
         foreach ($raw_data['history'] as $k => $v) {
             $row = array();
             foreach ($fields as $field) {
-                $row[$field] = $v[strtoupper($field)];
+                $key = strtoupper($field);
+                
+                if (!empty($v[$key])) {
+                    $row[$field] = $v[$key];
+                }
             }
             
             $data[$v['TRADEDATE']] = $row;

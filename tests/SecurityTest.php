@@ -18,6 +18,7 @@ use Panychek\MoEx\Market;
 use Panychek\MoEx\Board;
 use Panychek\MoEx\Security;
 use Panychek\MoEx\Client;
+use Panychek\MoEx\Exception\BadMethodCallException;
 
 class SecurityTest extends TestCase
 {
@@ -84,7 +85,13 @@ class SecurityTest extends TestCase
         $this->assertInternalType('array', $security->getDates());
         $this->assertEquals(2, Client::getInstance()->getCounter());
         
-        $this->assertInternalType('array', $security->getIndices());
+        $indices = $security->getIndices();
+        $this->assertInternalType('array', $indices);
+        
+        foreach ($indices as $index) {
+            $this->assertInstanceOf(Security::class, $index);
+        }
+        
         $this->assertEquals(3, Client::getInstance()->getCounter());
     }
 
@@ -129,13 +136,42 @@ class SecurityTest extends TestCase
         $this->assertInternalType('float', $security->getLastPrice());
         $this->assertInternalType('float', $security->getOpeningPrice());
         $this->assertInternalType('float', $security->getClosingPrice());
+        
         $this->assertInternalType('int', $security->getVolume());
+        $this->assertInternalType('int', $security->getVolume('USD'));
+        $this->assertInternalType('int', $security->getVolume('RUB'));
+        $this->assertInternalType('int', $security->getVolume('usd'));
+        $this->assertInternalType('int', $security->getVolume('rub'));
+        
         $this->assertInternalType('float', $security->getDailyHigh());
         $this->assertInternalType('float', $security->getDailyLow());
-        $this->assertInternalType('numeric', $security->getDailyChange());
-        $this->assertInternalType('numeric', $security->getDailyPercentageChange());
+        
+        $this->assertInternalType('numeric', $security->getChange());
+        $this->assertInternalType('numeric', $security->getChange('day'));
+        $this->assertInternalType('numeric', $security->getChange('day', '%'));
+        
+        $this->assertInstanceOf(\DateTime::class, $security->getLastUpdate());
         
         $this->assertEquals(2, Client::getInstance()->getCounter());
+    }
+
+    /**
+     * @group Unit
+     */
+    public function testUnknownGetterThrowsException()
+    {
+        // security
+        $body = file_get_contents(__DIR__ . '/Response/security.json');
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        
+        $this->mock_handler->append($response);
+        
+        $security_name = '#moex';
+        $security = new Security($security_name);
+        
+        $this->expectException(BadMethodCallException::class);
+        
+        $security->getUnknownProperty();
     }
 
     /**

@@ -57,7 +57,14 @@ class Market extends AbstractEntry
     public static function getInstance(string $id, string $engine_id)
     {
         if (!isset(self::$instances[$engine_id][$id])) {
-            self::$instances[$engine_id][$id] = new self($id, $engine_id);
+            $class = sprintf('Panychek\MoEx\%s\%sMarket', ucwords($engine_id), ucwords($id));
+            
+            if (class_exists($class)) {
+                self::$instances[$engine_id][$id] = new $class($id, $engine_id);
+                
+            } else {
+                self::$instances[$engine_id][$id] = new self($id, $engine_id);
+            }
         }
         
         return self::$instances[$engine_id][$id];
@@ -141,5 +148,39 @@ class Market extends AbstractEntry
     {
         $this->loadInfo();
         return $this->boards;
+    }
+    
+    /**
+     * Get a mapped property
+     *
+     * @param  string $property
+     * @return false|callable
+     */
+    public function getMappedProperty(string $property) {
+        if (!empty($this->property_mappings[$property])) {
+            return $this->property_mappings[$property];
+        }
+    }
+    
+    /**
+     * Get a market data getter
+     *
+     * @param  string $property
+     * @return false|callable
+     */
+    public function getMarketDataGetter(string $property) {
+        if (!empty($this->market_data_mappings[$property])) { // it's a simple getter
+            $field = $this->market_data_mappings[$property];
+            return function($market_data) use ($field) {
+                return $market_data[$field];
+            };
+        }
+        
+        $method = sprintf('get%sGetter', $property);
+        if (method_exists($this, $method)) {
+            return $this->$method();
+        }
+        
+        return false;
     }
 }

@@ -7,12 +7,12 @@
  * @author    Igor Panychek panychek@gmail.com
  */
 
-namespace Panychek\MoEx;
+namespace Panychek\MoEx\Commodity;
 
-class FuturesEngine extends Engine
+class Engine extends \Panychek\MoEx\Engine
 {
     /**
      * @var string
      */
-    protected $id = 'futures';
+    protected $id = 'commodity';    
 }

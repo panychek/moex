@@ -7,9 +7,12 @@
  * @author    Igor Panychek panychek@gmail.com
  */
 
-namespace Panychek\MoEx;
+namespace Panychek\MoEx\Stock;
 
-class StockEngine extends Engine
+use Panychek\MoEx\Client;
+use Panychek\MoEx\Exception\DataException;
+
+class Engine extends \Panychek\MoEx\Engine
 {
     /**
      * @var string
@@ -19,7 +22,7 @@ class StockEngine extends Engine
     /**
      * Get the stock market capitalization
      *
-     * @throws Exception\DataException for unsupported data formats
+     * @throws \Panychek\MoEx\Exception\DataException for unsupported data formats
      * @return float
      */
     public function getCapitalization()
@@ -28,7 +31,7 @@ class StockEngine extends Engine
         
         if (empty($data['issuecapitalization'][0]['ISSUECAPITALIZATION'])) {
             $message = 'No available data';
-            throw new Exception\DataException($message, Exception\DataException::EMPTY_RESULT);
+            throw new DataException($message, DataException::EMPTY_RESULT);
         }
         
         return $data['issuecapitalization'][0]['ISSUECAPITALIZATION'];

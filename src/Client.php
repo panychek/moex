@@ -15,6 +15,8 @@ class Client
 {
     const API_URL = 'http://iss.moex.com/iss/';
     
+    const TIMEZONE = 'Europe/Moscow';
+    
     const DATE_FORMAT = 'Y-m-d';
     
     /**
@@ -353,6 +355,17 @@ class Client
     public function getSecurityIndices(string $security_code)
     {
         $uri = sprintf('securities/%s/indices', $security_code);
+        return $this->getData($uri);
+    }
+    
+    /**
+     * Get the index list
+     *
+     * @return array
+     */
+    public function getIndexList()
+    {
+        $uri = 'statistics/engines/stock/markets/index/analytics';
         return $this->getData($uri);
     }
     

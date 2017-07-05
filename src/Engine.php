@@ -25,7 +25,7 @@ abstract class Engine extends AbstractEntry
     public static function getInstance(string $id)
     {
         if (!isset(self::$instances[$id])) {
-            $class = 'Panychek\MoEx\\' . ucwords($id) . 'Engine';
+            $class = 'Panychek\MoEx\\' . ucwords($id) . '\Engine';
             self::$instances[$id] = new $class;
         }
         
