@@ -1,8 +1,9 @@
 Moscow Exchange ISS Client
 =======================
 
-A PHP library that provides easy access to [Moscow Exchange](https://www.moex.com/) data via its [Informational & Statistical Server](https://www.moex.com/a2920).
+[![Build Status](https://travis-ci.org/panychek/moex.svg?branch=master)](https://travis-ci.org/panychek/moex)
 
+A PHP library that provides easy access to [Moscow Exchange](https://www.moex.com/) data via its [Informational & Statistical Server](https://www.moex.com/a2920).
 
 ## Installation
 
@@ -62,7 +63,7 @@ Available methods:
 * `getDailyLow`
 * `getLastUpdate`
 * `getVolume($currency = 'RUB')`
-* `getChange($range = 'day', $measure = 'currency')
+* `getChange($range = 'day', $measure = 'currency')`
 
 ###### Example usage
 
@@ -97,7 +98,7 @@ Available methods:
 * `getDailyLow`
 * `getLastUpdate`
 * `getVolume($currency = 'RUB')`
-* `getChange($range = 'day', $measure = 'bp')
+* `getChange($range = 'day', $measure = 'bp')`
 * `getCapitalization($currency = 'RUB')`
 
 ###### Example usage
