@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use Panychek\MoEx\Exchange;
 use Panychek\MoEx\Engine;
 use Panychek\MoEx\Market;
 use Panychek\MoEx\Client;
@@ -37,6 +38,10 @@ class MarketTest extends TestCase
         
         Client::setExtraOption('handler', null);
         Client::destroyInstance();
+        
+        Exchange::destroyInstance();
+        Engine::destroyInstances();
+        Market::destroyInstances();
     }
     
     /**
@@ -53,7 +58,7 @@ class MarketTest extends TestCase
         
         $this->mock_handler->append($response);
         
-        $market = new Market($market_id, $engine_id);
+        $market = Market::getInstance($market_id, $engine_id);
         
         $this->assertEquals($market_id, $market->getId());
         $this->assertEquals('Рынок акций', $market->getTitle());

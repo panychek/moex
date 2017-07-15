@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use Panychek\MoEx\Exchange;
 use Panychek\MoEx\Engine;
 use Panychek\MoEx\Market;
 use Panychek\MoEx\Board;
@@ -38,6 +39,10 @@ class EngineTest extends TestCase
         
         Client::setExtraOption('handler', null);
         Client::destroyInstance();
+        
+        Exchange::destroyInstance();
+        Engine::destroyInstances();
+        Market::destroyInstances();
     }
     
     /**
@@ -60,6 +65,13 @@ class EngineTest extends TestCase
         
         $this->mock_handler->append($response);
         
+        // turnovers
+        $body = file_get_contents(__DIR__ . '/Response/turnovers.json');
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        
+        $this->mock_handler->append($response);
+        
+        
         $engine = Engine::getInstance($engine_id);
         
         $this->assertEquals($engine_id, $engine->getId());
@@ -68,9 +80,18 @@ class EngineTest extends TestCase
         
         $this->assertEquals(1, Client::getInstance()->getCounter());
         
-        $this->assertInternalType('array', $engine->getMarkets());
+        $markets = $engine->getMarkets();
+        $this->assertInternalType('array', $markets);
+        foreach ($markets as $market) {
+            $this->assertInstanceOf(Market::class, $market);
+        }
         
         $this->assertEquals(2, Client::getInstance()->getCounter());
+        
+        $turnovers = $engine->getTurnovers();
+        $this->assertTrue(in_array(gettype($turnovers), array('NULL', 'double')));
+        
+        $this->assertEquals(3, Client::getInstance()->getCounter());
         
         if (method_exists($engine, 'getCapitalization')) {
             $response_file = sprintf('%s/Response/%s_engine_capitalization.json', __DIR__, $engine_id);
@@ -81,7 +102,7 @@ class EngineTest extends TestCase
             
             $this->assertInternalType('float', $engine->getCapitalization());
             
-            $this->assertEquals(3, Client::getInstance()->getCounter());
+            $this->assertEquals(4, Client::getInstance()->getCounter());
         }
     }
     

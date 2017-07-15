@@ -277,6 +277,24 @@ class Client
     }
     
     /**
+     * Get the turnovers
+     *
+     * @param  \DateTime|false $date
+     * @return array
+     */
+    public function getTurnovers($date = false)
+    {
+        $uri = 'turnovers';
+        
+        $params = array();
+        if ($date) {
+            $params['date'] = $date->format(self::DATE_FORMAT);
+        }
+        
+        return $this->getData($uri, $params);
+    }
+    
+    /**
      * Get the market list
      *
      * @param  string $engine

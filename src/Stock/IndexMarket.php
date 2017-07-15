@@ -41,19 +41,12 @@ class IndexMarket extends Market
          *
          * @param  array $market_data
          * @param  array $arguments
-         * @throws \Panychek\MoEx\Exception\InvalidArgumentException
          * @return mixed
          */
         return function(array $market_data, array $arguments) {
             $currency = (!empty($arguments[0])) ? $arguments[0] : 'rub';
             $currency = strtolower($currency);
-            
-            $currencies = array('rub', 'usd');
-            
-            if (!in_array($currency, $currencies)) {
-                $message = 'Unsupported currency';
-                throw new InvalidArgumentException($message);
-            }
+            $this->validateCurrency($currency);
             
             $field = 'valtoday';
             if ($currency == 'usd') {
@@ -112,19 +105,12 @@ class IndexMarket extends Market
          *
          * @param  array $market_data
          * @param  array $arguments
-         * @throws \Panychek\MoEx\Exception\InvalidArgumentException
          * @return int
          */
         return function(array $market_data, array $arguments) {
             $currency = (!empty($arguments[0])) ? $arguments[0] : 'rub';
             $currency = strtolower($currency);
-            
-            $currencies = array('rub', 'usd');
-            
-            if (!in_array($currency, $currencies)) {
-                $message = 'Unsupported currency';
-                throw new InvalidArgumentException($message);
-            }
+            $this->validateCurrency($currency);
             
             $field = 'capitalization';
             if ($currency == 'usd') {

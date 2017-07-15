@@ -71,6 +71,17 @@ class Market extends AbstractEntry
     }
     
     /**
+     * Destroy all instances (for unit tests)
+     * 
+     * @return void
+     */
+    public static function destroyInstances() {
+        if (isset(self::$instances)) {
+            self::$instances = null;
+        }
+    }
+        
+    /**
      * Load the info
      *
      * @throws Exception\DataException for unknown markets
@@ -119,10 +130,7 @@ class Market extends AbstractEntry
     public function getTitle()
     {
         if(empty($this->getProperties()['title'])) {
-            $markets = $this->getEngine()->getMarkets();
-            $title = $markets[$this->getId()];
-            
-            $this->setProperty('title', $title);
+            $this->getEngine()->setMarkets();
         }
         
         return $this->getProperties()['title'];

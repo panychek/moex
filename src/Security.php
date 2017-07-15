@@ -165,6 +165,16 @@ class Security extends AbstractEntry
     }
     
     /**
+     * Get the exchange
+     *
+     * @return \Panychek\MoEx\Exchange
+     */
+    public function getExchange()
+    {
+        return Exchange::getInstance();
+    }
+    
+    /**
      * Get the engine
      *
      * @return \Panychek\MoEx\Engine
@@ -318,24 +328,12 @@ class Security extends AbstractEntry
         for ($i = 0;$i <= 1;$i ++) {
             if (isset($args[$i])) {
                 $date = $args[$i];
-            
-                if ($date instanceof DateTime || $date === false) {
-                    continue;
-                }
+                
+                $this->validateDate($date);
                 
                 if (is_string($date)) {
-                    try {
-                        $timezone = new \DateTimeZone(Client::TIMEZONE);
-                        $args[$i] = new \DateTime($date, $timezone);
-                        
-                    } catch (\Exception $e) {
-                        $message = sprintf('Invalid date passed as string: %s', $args[$i]);
-                        throw new Exception\InvalidArgumentException($message);
-                    }
-                    
-                } else {
-                    $message = 'Date must be an instance of \DateTime or a string';
-                    throw new Exception\InvalidArgumentException($message);
+                    $timezone = new \DateTimeZone(Client::TIMEZONE);
+                    $args[$i] = new \DateTime($date, $timezone);
                 }
             }
         }

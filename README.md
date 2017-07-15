@@ -151,6 +151,47 @@ Starting from a particular day:
 $data = $security->getHistoricalQuotes('2017-01-01');
 ```
 
+### Turnovers
+
+#### Totals for the exchange
+
+Last available trade day:
+
+```php
+$exchange = $security->getExchange();
+
+$turnovers_rub = $exchange->getTurnovers('rub'); 
+$turnovers_usd = $exchange->getTurnovers('usd');
+$num_trades = $exchange->getNumberOfTrades(); 
+```
+
+For a specific day:
+
+```php
+$christmas_turnovers = $exchange->getTurnovers('usd', '2015-12-25');
+$christmas_num_trades = $exchange->getNumberOfTrades('2015-12-25');
+```
+
+#### Totals for a specific market
+
+Last available trade day:
+
+```php
+$security = new Security('USDRUB');
+$fx_market = $security->getEngine();
+
+$fx_turnovers_rub = $fx_market->getTurnovers('rub');
+$fx_turnovers_usd = $security->getEngine()->getTurnovers('usd');
+$fx_num_trades = $security->getEngine()->getNumberOfTrades(); 
+```
+
+For a specific day:
+
+```php
+$fx_christmas_turnovers = $fx_market->getTurnovers('usd', '2015-12-25');
+$fx_christmas_num_trades = $fx_market->getNumberOfTrades('2015-12-25');
+```
+
 ### Handling errors
 A `Panychek\MoEx\Exception\DataException` exception is thrown in the event of any data related error.
 The following codes indicate the reason for the failure:

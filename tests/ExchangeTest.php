@@ -16,10 +16,9 @@ use GuzzleHttp\Psr7\Response;
 use Panychek\MoEx\Exchange;
 use Panychek\MoEx\Engine;
 use Panychek\MoEx\Market;
-use Panychek\MoEx\Board;
 use Panychek\MoEx\Client;
 
-class BoardTest extends TestCase
+class ExchangeTest extends TestCase
 {
     /**
      * @var \GuzzleHttp\Handler\MockHandler
@@ -50,25 +49,38 @@ class BoardTest extends TestCase
      */
     public function testGetters()
     {
-        $market_id = 'stock';
-        $engine_id = 'shares';
-        $board_id = 'TQBR';
-        
-        // board
-        $body = file_get_contents(__DIR__ . '/Response/board.json');
+        // engines
+        $body = file_get_contents(__DIR__ . '/Response/engines.json');
         $response = new Response(200, ['Content-Type' => 'application/json'], $body);
         
         $this->mock_handler->append($response);
         
-        $board = new Board($board_id, $market_id, $engine_id);
+        // turnovers
+        $body = file_get_contents(__DIR__ . '/Response/turnovers.json');
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
         
-        $this->assertEquals($board_id, $board->getId());
-        $this->assertEquals('Т+ Акции и ДР', $board->getTitle());
-        $this->assertEquals('Т+ Акции и ДР', $board->getProperty('title'));
+        $this->mock_handler->append($response);
+        
+        $exchange = Exchange::getInstance();
+        
+        $engines = $exchange->getEngines();
+        $this->assertInternalType('array', $engines);
+        foreach ($engines as $engine) {
+            $this->assertInstanceOf(Engine::class, $engine);
+        }
         
         $this->assertEquals(1, Client::getInstance()->getCounter());
         
-        $this->assertInstanceOf(Engine::class, $board->getEngine());
-        $this->assertInstanceOf(Market::class, $board->getMarket());
+        $this->assertEquals(3476668.60556, $exchange->getTurnovers());
+        $this->assertEquals(57711.131417900004, $exchange->getTurnovers('USD'));
+        $this->assertEquals(3476668.60556, $exchange->getTurnovers('RUB'));
+        $this->assertEquals(57711.131417900004, $exchange->getTurnovers('usd'));
+        $this->assertEquals(3476668.60556, $exchange->getTurnovers('rub'));
+        $this->assertEquals(3273085.53681, $exchange->getTurnovers('rub', '2017-07-06'));
+        
+        $this->assertEquals(1878607, $exchange->getNumberOfTrades());
+        $this->assertEquals(1756336, $exchange->getNumberOfTrades('2017-07-06'));
+        
+        $this->assertEquals(2, Client::getInstance()->getCounter());
     }
 }

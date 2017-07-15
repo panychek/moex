@@ -71,7 +71,7 @@ abstract class AbstractEntry
      * @param  string $value
      * @return void
      */
-    protected function setProperty(string $name, string $value)
+    public function setProperty(string $name, string $value)
     {
         $this->properties[$name] = $value;
     }
@@ -129,5 +129,65 @@ abstract class AbstractEntry
     public function getPropertyFromMethod(string $name)
     {
         return strtolower(substr($name, 3));
+    }
+    
+    
+    /**
+     * Make sure a currency code is valid
+     *
+     * @param  string $currency
+     * @throws \Panychek\MoEx\Exception\InvalidArgumentException
+     */
+    protected function validateCurrency(string $currency)
+    {
+        $currencies = array('rub', 'usd');
+        
+        if (!in_array($currency, $currencies)) {
+            $message = 'Unsupported currency';
+            throw new Exception\InvalidArgumentException($message);
+        }
+    }
+    
+    /**
+     * Make sure a date is valid
+     *
+     * @param  \DateTime|string|false $date
+     * @throws \Panychek\MoEx\Exception\InvalidArgumentException
+     */
+    protected function validateDate($date)
+    {
+        if (($date instanceof \DateTime) || $date === false) {
+            return;
+        }
+        
+        if (is_string($date)) {
+            try {
+                $timezone = new \DateTimeZone(Client::TIMEZONE);
+                $date = new \DateTime($date, $timezone);
+                
+            } catch (\Exception $e) {
+                $message = sprintf('Invalid date passed as string: %s', $date);
+                throw new Exception\InvalidArgumentException($message);
+            }
+            
+        } else {
+            $message = 'Date must be an instance of \DateTime or a string';
+            throw new Exception\InvalidArgumentException($message);
+        }
+    }
+    
+    /**
+     * Get a date string
+     *
+     * @param  \DateTime|false $date
+     */
+    protected function getDateString($date)
+    {
+        if ($date === false) { // today
+            $timezone = new \DateTimeZone(Client::TIMEZONE);
+            $date = new \DateTime('now', $timezone);            
+        }
+        
+        return $date->format(Client::DATE_FORMAT);
     }
 }

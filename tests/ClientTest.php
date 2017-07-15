@@ -173,6 +173,24 @@ class ClientTest extends TestCase
      *
      * @group Integration
      */
+    public function testTurnoversSuccessfulResponse()
+    {
+        $client = Client::getInstance();
+        
+        $data = $client->getTurnovers();
+        
+        $this->assertInternalType('array', $data);
+        
+        $this->assertArrayHasKey('turnovers', $data);
+        $this->assertArrayHasKey('turnoversprevdate', $data);
+        $this->assertArrayHasKey('turnoverssectors', $data);
+        $this->assertArrayHasKey('turnoverssectorsprevdate', $data);
+    }
+    
+    /**
+     *
+     * @group Integration
+     */
     public function testMarketListSuccessfulResponse()
     {
         $client = Client::getInstance();
