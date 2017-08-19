@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use Panychek\MoEx\Exchange;
 use Panychek\MoEx\Engine;
 use Panychek\MoEx\Market;
 use Panychek\MoEx\Board;
@@ -40,6 +41,8 @@ class SecurityTest extends TestCase
         
         Client::setExtraOption('handler', null);
         Client::destroyInstance();
+        
+        Exchange::destroy();
     }
     
     /**

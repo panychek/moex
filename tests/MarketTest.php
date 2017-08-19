@@ -39,9 +39,7 @@ class MarketTest extends TestCase
         Client::setExtraOption('handler', null);
         Client::destroyInstance();
         
-        Exchange::destroyInstance();
-        Engine::destroyInstances();
-        Market::destroyInstances();
+        Exchange::destroy();
     }
     
     /**

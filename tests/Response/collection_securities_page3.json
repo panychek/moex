@@ -1,0 +1,32 @@
+{
+"securities": {
+    "columns": ["SECID", "ISSUENAME", "NAME", "SHORTNAME", "ISIN", "REGNUMBER", "ISSUESIZE", "FACEVALUE", "FACEUNIT", "ISSUEDATE", "LATNAME", "DEPOSITARYNOTETYPE", "HASPROSPECTUS", "DECISIONDATE", "HASDEFAULT", "HASTECHNICALDEFAULT", "EMITENTMISMATCHFIRST", "EMITENTMISMATCHCUR", "LISTLEVEL", "ISQUALIFIEDINVESTORS", "SHARESPERRECEIPT", "TYPE", "TYPENAME"], 
+    "data": [
+        ["PHOR", null, "ФосАгро ПАО ао", "ФосАгро ао", "RU000A0JRKT8", "1-02-06556-A", 129500000, 2.5000, "SUR", "2011-07-18", "PhosAgro ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["PIKK", null, "Группа компания ПИК ПАО ао", "ПИК ао", "RU000A0JP7J7", "1-02-01556-A", 660497344, 62.5000, "SUR", "2007-06-13", "PIK", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["PLZL", null, "Полюс ПАО ао", "Полюс", "RU000A0JNAA8", "1-01-55192-E", 133561119, 1.0000, "SUR", "2006-05-12", "Polus", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["POLY", null, "Polymetal International plc", "Polymetal", "JE00B6T5S470", null, 430112661, null, "GBP", "2013-06-17", "Polymetal International plc", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["PSBR", null, "Промсвязьбанк ПАО ао", "Промсвб ао", "RU000A0JNX47", "10203251B", 1113385474671, 0.0100, "SUR", "2012-10-10", "Promsvyazbank PAO ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["QIWI", null, "QIWI PLC", "iQIWI", "US74735M1080", null, 0, null, "SUR", "2013-10-08", "QIWI PLC", null, null, null, null, null, null, null, "1", "0", null, "depositary_receipt", "Депозитарная расписка"],
+        ["RGSS", null, "Росгосстрах СК ПАО ао", "РГС СК ао", "RU0008010855", "1-03-10003-Z", 489503740915, 0.0400, "SUR", "2013-11-19", "Rosgosstrakh ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["RNFT", null, "РуссНефть НК ПАО ао", "РуссНфт ао", "RU000A0JSE60", "1-02-39134-H", 294120000, 0.5000, "SUR", "2016-11-18", "RussNeft NK", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["ROSN", null, "ПАО НК Роснефть", "Роснефть", "RU000A0J2Q06", "1-02-00122-A", 10598177817, 0.0100, "SUR", "2006-07-19", "Rosneft", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["RSTI", null, "\"Российские сети\" ПАО ао", "Россети ао", "RU000A0JPVJ0", "1-01-55385-E", 198827865141, 1.0000, "SUR", "2014-01-06", "Rosseti ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["RSTIP", null, "\"Российские сети\" ПАО ап", "Россети ап", "RU000A0JPVK8", "2-01-55385-E", 2075149384, 1.0000, "SUR", "2014-01-06", "Rosseti ap", null, null, null, null, null, null, null, "1", "0", null, "preferred_share", "Акция привилегированная "],
+        ["RTKM", null, "Ростелеком (ПАО) ао.", "Ростел -ао", "RU0008943394", "1-01-00124-A", 2574914954, 0.0025, "SUR", "2005-01-11", "Rostelecom", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["RTKMP", null, "Ростелеком (ПАО) ап.", "Ростел -ап", "RU0009046700", "2-01-00124-A", 209565147, 0.0025, "SUR", "2005-01-11", "Rostelecom- (pref)", null, null, null, null, null, null, null, "1", "0", null, "preferred_share", "Акция привилегированная "],
+        ["RUAL", null, "United Company RUSAL Plc", "RUSAL plc", "JE00B5BCW814", null, 15193014862, 0.0100, "USD", "2015-03-30", "United Company RUSAL Plc", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["RUALR", null, "РДР Юнайтед Компани РУСАЛ Плс", "Русал рдр", "RU000A0JR5Z5", "5-01-01481-B", 2000000000, null, "SUR", "2010-12-24", "RDR United Company RUSAL Plc", null, null, null, null, null, null, null, "1", "0", null, "depositary_receipt", "Депозитарная расписка"],
+        ["SBER", null, "Сбербанк России ПАО ао", "Сбербанк", "RU0009029540", "10301481B", 21586948000, 3.0000, "SUR", "2007-07-20", "Sberbank", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["SBERP", null, "Сбербанк России ПАО ап", "Сбербанк-п", "RU0009029557", "20301481B", 1000000000, 3.0000, "SUR", "2007-07-20", "Sberbank (pref)", null, null, null, null, null, null, null, "1", "0", null, "preferred_share", "Акция привилегированная "],
+        ["SELG", null, "ПАО \"Селигдар\"  ао", "Селигдар", "RU000A0JPR50", "1-01-32694-F", 737354730, 1.0000, "SUR", "2011-09-22", "Seligdar", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["SELGP", null, "ПАО \"Селигдар\" ап", "Селигдар-п", "RU000A0JS2J5", "2-01-32694-F", 150000000, 1.0000, "SUR", "2012-05-11", "Seligdar ap", null, null, null, null, null, null, null, "1", "0", null, "preferred_share", "Акция привилегированная "],
+        ["SVAV", null, "ОАО \"СОЛЛЕРС\" ао", "СОЛЛЕРС", "RU0006914488", "1-01-02461-D", 34270159, 12.5000, "SUR", "2005-04-22", "Sollers", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"]
+    ]
+},
+"securities.cursor": {
+    "columns": ["INDEX", "TOTAL", "PAGESIZE"], 
+    "data": [
+        [40, 71, 20]
+    ]
+}}

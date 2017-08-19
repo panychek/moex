@@ -1,0 +1,23 @@
+{
+"securities": {
+    "columns": ["SECID", "ISSUENAME", "NAME", "SHORTNAME", "ISIN", "REGNUMBER", "ISSUESIZE", "FACEVALUE", "FACEUNIT", "ISSUEDATE", "LATNAME", "DEPOSITARYNOTETYPE", "HASPROSPECTUS", "DECISIONDATE", "HASDEFAULT", "HASTECHNICALDEFAULT", "EMITENTMISMATCHFIRST", "EMITENTMISMATCHCUR", "LISTLEVEL", "ISQUALIFIEDINVESTORS", "SHARESPERRECEIPT", "TYPE", "TYPENAME"], 
+    "data": [
+        ["TATN", null, "ПАО \"Татнефть\" ао", "Татнфт 3ао", "RU0009033591", "1-03-00161-A", 2178690700, 1.00, "SUR", "2005-01-11", "Tatneft-3", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["TATNP", null, "ПАО \"Татнефть\" ап 3 вып.", "Татнфт 3ап", "RU0006944147", "2-03-00161-A", 147508500, 1.00, "SUR", "2005-01-11", "Tatneft (pref)", null, null, null, null, null, null, null, "1", "0", null, "preferred_share", "Акция привилегированная "],
+        ["TGKA", null, "ао ПАО \"ТГК-1\"", "ТГК-1", "RU000A0JNUD0", "1-01-03388-D", 3854341416571, 0.01, "SUR", "2007-03-26", "TGK-1", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["TRCN", null, "ТрансКонтейнер ПАО ао", "ТрансК ао", "RU000A0JPRX9", "1-01-55194-E", 13894778, 1000.00, "SUR", "2010-11-12", "TransKonteiner ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["TRMK", null, "ПАО ТМК", "ТМК ао", "RU000A0B6NK6", "1-01-29031-H", 1033135366, 10.00, "SUR", "2007-04-10", "TMK ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["TRNFP", null, "Транснефть ПАО акц.пр.", "Транснф ап", "RU0009091573", "2-01-00206-A", 1554875, 1.00, "SUR", "2008-01-14", "Transneft (pref)", null, null, null, null, null, null, null, "1", "0", null, "preferred_share", "Акция привилегированная "],
+        ["UPRO", null, "Юнипро ПАО ао", "Юнипро ао", "RU000A0JNGA5", "1-02-65104-D", 63048706145, 0.40, "SUR", "2007-05-24", "Unipro PAO ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["UWGN", null, "ПАО НПК ОВК ао", "ОВК ао", "RU000A0JVBT9", "1-01-82031-H", 115996689, 1.00, "SUR", "2015-04-29", "OVK ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["UWGN-001D", null, "ПАО НПК ОВК 001D ао", "ОВК-001D", "RU000A0JVBU7", "1-01-82031-H-001D", 99990000, 1.00, "SUR", "2015-04-29", "OVK-001D ao", null, null, null, null, null, null, null, null, null, null, "common_share", "Акция обыкновенная"],
+        ["VTBR", null, "ао ПАО Банк ВТБ", "ВТБ ао", "RU000A0JP5V6", "10401000B", 12960541337338, 0.01, "SUR", "2007-05-28", "VTB", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["YNDX", null, "PLLC Yandex N.V. class A shs", "Yandex clA", "NL0009805522", null, 285203019, 0.01, "EUR", "2014-06-04", "PLLC Yandex N.V.", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"]
+    ]
+},
+"securities.cursor": {
+    "columns": ["INDEX", "TOTAL", "PAGESIZE"], 
+    "data": [
+        [60, 71, 20]
+    ]
+}}

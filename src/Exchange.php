@@ -27,6 +27,11 @@ class Exchange extends AbstractEntry
     /**
      * @var array
      */
+    private $security_groups = array();
+    
+    /**
+     * @var array
+     */
     private $turnovers = array();
     
     /**
@@ -57,6 +62,19 @@ class Exchange extends AbstractEntry
         if (isset(self::$instance)) {
             self::$instance = null;
         }
+    }
+    
+    /**
+     * Destroy all created instances (for unit tests)
+     * 
+     * @return void
+     */
+    public static function destroy() {
+        self::destroyInstance();
+        Engine::destroyInstances();
+        Market::destroyInstances();
+        SecurityGroup::destroyInstances();
+        Collection::destroyInstances();
     }
     
     /**
@@ -94,6 +112,43 @@ class Exchange extends AbstractEntry
         }
         
         return $this->engines;
+    }
+    
+    /**
+     * Set the security groups
+     *
+     * @throws Exception\DataException when the list is empty
+     * @return void
+     */
+    public function setSecurityGroups()
+    {
+        $security_groups = Client::getInstance()->getSecurityGroups();
+        
+        if (empty($security_groups['securitygroups'])) {
+            $message = 'No available data';
+            throw new Exception\DataException($message, Exception\DataException::EMPTY_RESULT);
+        }
+        
+        foreach ($security_groups['securitygroups'] as $v) {
+            $security_group = SecurityGroup::getInstance($v['name']);
+            $security_group->setProperty('title', $v['title']);
+            
+            $this->security_groups[] = $security_group;
+        }
+    }
+        
+    /**
+     * Get the security groups
+     *
+     * @return array
+     */
+    public function getSecurityGroups()
+    {
+        if (empty($this->security_groups)) {
+            $this->setSecurityGroups();
+        }
+        
+        return $this->security_groups;
     }
     
     /**

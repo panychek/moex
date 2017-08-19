@@ -192,6 +192,16 @@ $fx_christmas_turnovers = $fx_market->getTurnovers('usd', '2015-12-25');
 $fx_christmas_num_trades = $fx_market->getNumberOfTrades('2015-12-25');
 ```
 
+### Groups
+
+Get the most reliable stocks (that are on the First Level quotation list):
+
+```php
+$shares_group = SecurityGroup::getInstance('stock_shares');
+$first_level = $shares_group->getCollection('one');
+$securities = $first_level->getSecurities();
+```
+
 ### Handling errors
 A `Panychek\MoEx\Exception\DataException` exception is thrown in the event of any data related error.
 The following codes indicate the reason for the failure:
@@ -201,3 +211,18 @@ The following codes indicate the reason for the failure:
  * `EMPTY_RESULT` - the response contains no actual data
 
 All exceptions thrown by the library implement the `Panychek\MoEx\Exception\ExceptionInterface` interface.
+
+## Tests
+There are two types of tests distributed with the package: unit tests and integration tests.
+
+The unit tests are run against mock data and hence are ready out-of-the-box. In order to run them, execute the following command:
+
+```sh
+phpunit --group Unit
+```
+
+The integration tests make real API calls and ensure that nothing has changed with the responses, so they require network access. You can perform integration testing by running:
+
+```sh
+phpunit --group Integration
+```

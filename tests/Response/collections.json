@@ -1,0 +1,10 @@
+{
+"collections": {
+    "columns": ["id", "name", "title"], 
+    "data": [
+        [3, "stock_shares_all", "Все акции"],
+        [160, "stock_shares_one", "Уровень 1"],
+        [161, "stock_shares_two", "Уровень 2"],
+        [162, "stock_shares_three", "Уровень 3"]
+    ]
+}}

@@ -377,6 +377,61 @@ class Client
     }
     
     /**
+     * Get the security groups
+     *
+     * @return array
+     */
+    public function getSecurityGroups()
+    {
+        $uri = 'securitygroups';
+        return $this->getData($uri);
+    }
+    
+    /**
+     * Get the security group collections
+     * 
+     * @param  string $security_group
+     * @return array
+     */
+    public function getSecurityGroupCollections(string $security_group)
+    {
+        $uri = sprintf('securitygroups/%s/collections', $security_group);
+        return $this->getData($uri);
+    }
+    
+    /**
+     * Get the collection
+     * 
+     * @param  string $security_group
+     * @param  string $collection
+     * @return array
+     */
+    public function getCollection(string $security_group, string $collection)
+    {
+        $uri = sprintf('securitygroups/%s/collections/%s', $security_group, $collection);
+        return $this->getData($uri);
+    }
+    
+    /**
+     * Get the collection securities
+     * 
+     * @param  string $security_group
+     * @param  string $collection
+     * @return array
+     */
+    public function getCollectionSecurities(string $security_group, string $collection)
+    {
+        $uri = sprintf('securitygroups/%s/collections/%s/securities', $security_group, $collection);
+        
+        $params = array(
+            'start' => 0,
+            'limit' => 20
+        );
+        
+        return $this->fetchAllPages($uri, 'securities', $params);
+    }
+    
+    /**
      * Get the index list
      *
      * @return array
@@ -440,6 +495,7 @@ class Client
         $uri = sprintf($uri, $engine, $market, $board, $security_code);
         
         $params = array(
+            'start' => 0,
             'limit' => 100
         );
         
@@ -451,32 +507,41 @@ class Client
             $params['till'] = $to->format(self::DATE_FORMAT);
         }
         
-        $start = 0;
-        return $this->fetchHistoryPage($uri, $params, $start);
+        return $this->fetchAllPages($uri, 'history', $params);
     }
     
     /**
      * Recursively fetch all the pages
      *
      * @param  string $uri
+     * @param  string $field
      * @param  array  $params
-     * @param  int    $start
      * @return void
      */
-    private function fetchHistoryPage(string $uri, array $params, int $start)
+    private function fetchAllPages(string $uri, string $field, array $params)
     {
-        $params['start'] = $start;
-        
         $data = $this->getData($uri, $params);
         
         if (empty($data)) {
             return array();
         }
         
-        if (count($data['history']) == $params['limit']) { // keep going
-            $next_page = $this->fetchHistoryPage($uri, $params, $start + $params['limit']);
-            $data['history'] = array_merge($data['history'], $next_page['history']); 
+        if (!empty($data[$field . '.cursor'])) { // there is a cursor
+            $cursor = $data[$field . '.cursor'][0];
+            if ($cursor['INDEX'] + $cursor['PAGESIZE'] < $cursor['TOTAL']) { // keep going
+                $params['start'] += $params['limit'];
+                $next_page = $this->fetchAllPages($uri, $field, $params);
+                $data[$field] = array_merge($data[$field], $next_page[$field]);
+            }
+            
+        } else {
+            if (count($data[$field]) == $params['limit']) { // keep going
+                $params['start'] += $params['limit'];
+                $next_page = $this->fetchAllPages($uri, $field, $params);
+                $data[$field] = array_merge($data[$field], $next_page[$field]); 
+            }
         }
+        
         
         return $data;
     }

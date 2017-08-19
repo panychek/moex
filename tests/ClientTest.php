@@ -11,6 +11,7 @@ namespace Panychek\MoEx\Tests;
 
 use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Exception\TransferException;
+use Panychek\MoEx\Exchange;
 use Panychek\MoEx\Engine;
 use Panychek\MoEx\Market;
 use Panychek\MoEx\Board;
@@ -292,6 +293,72 @@ class ClientTest extends TestCase
         $this->assertInternalType('array', $data);
         
         $this->assertArrayHasKey('indices', $data);
+    }
+    
+    /**
+     *
+     * @group Integration
+     */
+    public function testSecurityGroupsSuccessfulResponse()
+    {
+        $client = Client::getInstance();
+        
+        $data = $client->getSecurityGroups();
+        
+        $this->assertInternalType('array', $data);
+        
+        $this->assertArrayHasKey('securitygroups', $data);
+    }
+    
+    /**
+     *
+     * @group Integration
+     */
+    public function testSecurityGroupCollectionsSuccessfulResponse()
+    {
+        $client = Client::getInstance();
+        
+        $security_group = 'stock_shares';
+        $data = $client->getSecurityGroupCollections($security_group);
+        
+        $this->assertInternalType('array', $data);
+        
+        $this->assertArrayHasKey('collections', $data);
+    }
+    
+    /**
+     *
+     * @group Integration
+     */
+    public function testCollectionSuccessfulResponse()
+    {
+        $client = Client::getInstance();
+        
+        $security_group = 'stock_shares';
+        $collection = 'stock_shares_one';
+        $data = $client->getCollection($security_group, $collection);
+        
+        $this->assertInternalType('array', $data);
+        
+        $this->assertArrayHasKey('collections', $data);
+        $this->assertArrayHasKey('boardgroups', $data);
+    }
+    
+    /**
+     *
+     * @group Integration
+     */
+    public function testCollectionSecuritiesSuccessfulResponse()
+    {
+        $client = Client::getInstance();
+        
+        $security_group = 'stock_shares';
+        $collection = 'stock_shares_one';
+        $data = $client->getCollectionSecurities($security_group, $collection);
+        
+        $this->assertInternalType('array', $data);
+        
+        $this->assertArrayHasKey('securities', $data);
     }
 
     /**

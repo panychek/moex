@@ -1,0 +1,32 @@
+{
+"securities": {
+    "columns": ["SECID", "ISSUENAME", "NAME", "SHORTNAME", "ISIN", "REGNUMBER", "ISSUESIZE", "FACEVALUE", "FACEUNIT", "ISSUEDATE", "LATNAME", "DEPOSITARYNOTETYPE", "HASPROSPECTUS", "DECISIONDATE", "HASDEFAULT", "HASTECHNICALDEFAULT", "EMITENTMISMATCHFIRST", "EMITENTMISMATCHCUR", "LISTLEVEL", "ISQUALIFIEDINVESTORS", "SHARESPERRECEIPT", "TYPE", "TYPENAME"], 
+    "data": [
+        ["IRAO", null, "\"Интер РАО\" ПАО ао", "ИнтерРАОао", "RU000A0JPNM1", "1-04-33498-E", 104400000000, 2.80977, "SUR", "2009-12-01", "Inter RAO ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["LKOH", null, "НК ЛУКОЙЛ (ПАО) - ао", "ЛУКОЙЛ", "RU0009024277", "1-01-00077-A", 850563255, 0.02500, "SUR", "2004-08-20", "LUKOIL", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["LNTA", null, "Лента Лтд.  др", "Лента др", "US52634T2006", null, 0, null, "SUR", "2014-03-06", "Lenta ltd dr", null, null, null, null, null, null, null, "1", "0", null, "depositary_receipt", "Депозитарная расписка"],
+        ["LSRG", null, "Группа ЛСР ПАО ао", "ЛСР ао", "RU000A0JPFP0", "1-01-55234-E", 103030215, 0.25000, "SUR", "2007-11-09", "LSR", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["MAGN", null, "\"Магнитогорск.мет.комб\" ПАО ао", "ММК", "RU0009084396", "1-03-00078-A", 11174330000, 1.00000, "SUR", "2005-12-26", "MMK", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["MFON", null, "МегаФон ПАО ао", "МегаФон ао", "RU000A0JS942", "1-03-00822-J", 620000000, 0.10000, "SUR", "2012-11-28", "MegaFon ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["MGNT", null, "\"Магнит\" ПАО ао", "Магнит ао", "RU000A0JKQU8", "1-01-60525-P", 94561355, 0.01000, "SUR", "2006-04-24", "Magnit", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["MOEX", null, "ПАО Московская Биржа", "МосБиржа", "RU000A0JR4A1", "1-05-08443-H", 2276401458, 1.00000, "SUR", "2013-02-04", "MoscowExchange", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["MSNG", null, "МосЭнерго акции обыкн.", "+МосЭнерго", "RU0008958863", "1-01-00085-A", 39749359700, 1.00000, "SUR", "2005-01-11", "MosEnrg", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["MTLR", null, "Мечел ПАО ао", "Мечел ао", "RU000A0DKXV5", "1-01-55005-E", 416270745, 10.00000, "SUR", "2008-12-26", "Mechel", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["MTLRP", null, "Мечел ПАО ап", "Мечел ап", "RU000A0JPV70", "2-01-55005-E", 138756915, 10.00000, "SUR", "2011-04-21", "Mechel pref.", null, null, null, null, null, null, null, "1", "0", null, "preferred_share", "Акция привилегированная "],
+        ["MTSS", null, "Мобильные ТелеСистемы ПАО ао", "МТС-ао", "RU0007775219", "1-01-04715-A", 1998381575, 0.10000, "SUR", "2004-02-11", "MTS", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["MVID", null, "\"М.видео\" ПАО ао", "М.видео", "RU000A0JPGA0", "1-02-11700-A", 179768227, 10.00000, "SUR", "2007-11-01", "M.video", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["NKHP", null, "НКХП ПАО ао", "НКХП ао", "RU000A0BLWD7", "1-03-35684-E", 67597000, 1.00000, "SUR", "2015-11-17", "NKHP ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["NLMK", null, "ПАО \"НЛМК\" ао", "НЛМК ао", "RU0009046452", "1-01-00102-A", 5993227240, 1.00000, "SUR", "2006-04-06", "NLMK ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["NMOS", null, "ОАО ОТКРЫТИЕ ФК Банк ао", "ОткрФКБ ао", "RU000A0JRAF8", "10102209B", 143852910, 50.00000, "SUR", "2011-04-19", "OTKRITIE FK Bank OAO ao", null, null, null, null, null, null, null, null, null, null, "common_share", "Акция обыкновенная"],
+        ["NVTK", null, "ПАО \"НОВАТЭК\" ао", "Новатэк ао", "RU000A0DKVS5", "1-02-00268-E", 3036306000, 0.10000, "SUR", "2006-08-18", "NOVATEK", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["OFCB", null, "ПАО ОТКРЫТИЕ ФК Банк ао", "ОткрФКБ ао", "RU000A0JRAF8", "10102209B", 208321642, 50.00000, "SUR", "2014-12-01", "OTKRITIE FK Bank PAO ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["OGKE", null, "\"Энел Россия\" ОАО", "ЭнелРос ао", "RU000A0F5UN3", "1-01-50077-A", 35371898370, 1.00000, "SUR", "2005-09-14", "Enel Russia", null, null, null, null, null, null, null, null, null, null, "common_share", "Акция обыкновенная"],
+        ["PGIL", null, "Polyus GOLD International Ltd", "PGIL-ао", "JE00B5WLXH36", null, 3032149962, 0.00010, "GBP", "2014-12-26", "Polyus Gold International", null, null, null, null, null, null, null, null, null, null, "common_share", "Акция обыкновенная"]
+    ]
+},
+"securities.cursor": {
+    "columns": ["INDEX", "TOTAL", "PAGESIZE"], 
+    "data": [
+        [20, 71, 20]
+    ]
+}}

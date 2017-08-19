@@ -17,6 +17,7 @@ use Panychek\MoEx\Exchange;
 use Panychek\MoEx\Engine;
 use Panychek\MoEx\Market;
 use Panychek\MoEx\Client;
+use Panychek\MoEx\SecurityGroup;
 
 class ExchangeTest extends TestCase
 {
@@ -39,9 +40,7 @@ class ExchangeTest extends TestCase
         Client::setExtraOption('handler', null);
         Client::destroyInstance();
         
-        Exchange::destroyInstance();
-        Engine::destroyInstances();
-        Market::destroyInstances();
+        Exchange::destroy();
     }
     
     /**
@@ -51,6 +50,12 @@ class ExchangeTest extends TestCase
     {
         // engines
         $body = file_get_contents(__DIR__ . '/Response/engines.json');
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        
+        $this->mock_handler->append($response);
+        
+        // security groups
+        $body = file_get_contents(__DIR__ . '/Response/security_groups.json');
         $response = new Response(200, ['Content-Type' => 'application/json'], $body);
         
         $this->mock_handler->append($response);
@@ -71,6 +76,14 @@ class ExchangeTest extends TestCase
         
         $this->assertEquals(1, Client::getInstance()->getCounter());
         
+        $security_groups = $exchange->getSecurityGroups();
+        $this->assertInternalType('array', $security_groups);
+        foreach ($security_groups as $security_group) {
+            $this->assertInstanceOf(SecurityGroup::class, $security_group);
+        }
+        
+        $this->assertEquals(2, Client::getInstance()->getCounter());
+        
         $this->assertEquals(3476668.60556, $exchange->getTurnovers());
         $this->assertEquals(57711.131417900004, $exchange->getTurnovers('USD'));
         $this->assertEquals(3476668.60556, $exchange->getTurnovers('RUB'));
@@ -81,6 +94,6 @@ class ExchangeTest extends TestCase
         $this->assertEquals(1878607, $exchange->getNumberOfTrades());
         $this->assertEquals(1756336, $exchange->getNumberOfTrades('2017-07-06'));
         
-        $this->assertEquals(2, Client::getInstance()->getCounter());
+        $this->assertEquals(3, Client::getInstance()->getCounter());
     }
 }

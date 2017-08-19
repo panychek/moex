@@ -1,0 +1,32 @@
+{
+"securities": {
+    "columns": ["SECID", "ISSUENAME", "NAME", "SHORTNAME", "ISIN", "REGNUMBER", "ISSUESIZE", "FACEVALUE", "FACEUNIT", "ISSUEDATE", "LATNAME", "DEPOSITARYNOTETYPE", "HASPROSPECTUS", "DECISIONDATE", "HASDEFAULT", "HASTECHNICALDEFAULT", "EMITENTMISMATCHFIRST", "EMITENTMISMATCHCUR", "LISTLEVEL", "ISQUALIFIEDINVESTORS", "SHARESPERRECEIPT", "TYPE", "TYPENAME"], 
+    "data": [
+        ["AFKS", null, "АФК \"Система\" ПАО ао", "Система ао", "RU000A0DQZE3", "1-05-01669-A", 9650000000, 0.0900, "SUR", "2007-12-12", "AFK Sistema", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["AFLT", null, "Аэрофлот-росс.авиалин(ПАО)ао", "Аэрофлот", "RU0009062285", "1-01-00010-A", 1110616299, 1.0000, "SUR", "2004-02-13", "Aeroflot", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["AGRO", null, "ГДР ROS AGRO PLC ORD SHS", "AGRO-гдр", "US7496552057", null, 0, null, "SUR", "2014-12-01", "GDR ROS AGRO PLC ORD SHS", "Спонсируемая", null, null, null, null, null, null, "1", "0", null, "depositary_receipt", "Депозитарная расписка"],
+        ["AKRN", null, "Акрон ПАО ао", "Акрон", "RU0009028674", "1-03-00207-A", 40534000, 5.0000, "SUR", "2006-10-11", "Acron", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["ALRS", null, "АЛРОСА ПАО ао", "АЛРОСА ао", "RU0007252813", "1-03-40046-N", 7364965630, 0.5000, "SUR", "2011-11-29", "ALROSA ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["BSPB", null, "ПАО \"Банк \"Санкт-Петербург\" ао", "БСП ао", "RU0009100945", "10300436B", 499554000, 1.0000, "SUR", "2008-03-19", "BSP", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["CBOM", null, "\"МКБ\" ПАО ао", "МКБ ао", "RU000A0JUG31", "10101978B", 23879709866, 1.0000, "SUR", "2015-06-22", "MKB ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["CHMF", null, "Северсталь (ПАО)ао", "СевСт-ао", "RU0009046510", "1-02-00143-A", 837718660, 0.0100, "SUR", "2005-06-02", "Severstal - ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["DIXY", null, "ГК \"ДИКСИ\" ао", "ДИКСИ ао", "RU000A0JP7H1", "1-02-40420-H", 124750000, 0.0100, "SUR", "2007-05-22", "DIXY Group ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["DSKY", null, "ПАО Детский мир", "ДетскийМир", "RU000A0JSQ90", "1-02-00844-A", 739000000, 0.0004, "SUR", "2017-02-10", "Detsky mir", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["ENRU", null, "\"Энел Россия\" ПАО", "ЭнелРос ао", "RU000A0F5UN3", "1-01-50077-A", 35371898370, 1.0000, "SUR", "2014-12-01", "Enel Russia", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["EONR", null, "Э.ОН Россия ОАО ао", "Э.ОНРоссия", "RU000A0JNGA5", "1-02-65104-D", 63048706145, 0.4000, "SUR", "2007-05-24", "E.ON Russia", null, null, null, null, null, null, null, null, null, null, "common_share", "Акция обыкновенная"],
+        ["EPLN", null, "Европлан ПАО ао", "Европлан", "RU000A0JVW89", "1-02-56453-P", 111637791, 0.6700, "SUR", "2015-12-04", "Europlan", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["EPLN-002D", null, "Европлан ПАО ао 002D", "Европлан2D", "RU000A0JWZJ7", "1-02-56453-P-002D", 88660791, 0.6700, "SUR", "2016-11-28", "Europlan 002D", null, null, null, null, null, null, null, null, null, null, "common_share", "Акция обыкновенная"],
+        ["FEES", null, "\"ФСК ЕЭС\" ПАО ао", "ФСК ЕЭС ао", "RU000A0JPNN9", "1-01-65018-D", 1274665323063, 0.5000, "SUR", "2008-07-16", "FSK EES", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["GAZP", null, "\"Газпром\" (ПАО) ао", "ГАЗПРОМ ао", "RU0007661625", "1-02-00028-A", 23673512900, 5.0000, "SUR", "2006-01-23", "Gazprom", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["GCHE", null, "Группа Черкизово ПАО-ао", "ЧеркизГ-ао", "RU000A0JL4R1", "1-02-10797-A", 43963773, 0.0100, "SUR", "2008-04-08", "Cherkizovo Group ao", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["GMKN", null, "ГМК \"Нор.Никель\" ПАО ао", "ГМКНорНик", "RU0007288411", "1-01-40155-F", 158245476, 1.0000, "SUR", "2006-12-26", "NorNickel GMK", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["HYDR", null, "ПАО \"РусГидро\"", "РусГидро", "RU000A0JPKH7", "1-01-55038-E", 386255464890, 1.0000, "SUR", "2008-05-22", "RusGidro", null, null, null, null, null, null, null, "1", "0", null, "common_share", "Акция обыкновенная"],
+        ["HYDR-041D", null, "ОАО \"РусГидро\"041D", "РусГидр41D", "RU000A0JTEN0", "1-01-55038-E-041D", 68617944796, 1.0000, "SUR", "2014-02-25", "RusGidro 041D", null, null, null, null, null, null, null, null, null, null, "common_share", "Акция обыкновенная"]
+    ]
+},
+"securities.cursor": {
+    "columns": ["INDEX", "TOTAL", "PAGESIZE"], 
+    "data": [
+        [0, 71, 20]
+    ]
+}}

@@ -14,12 +14,11 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Panychek\MoEx\Exchange;
-use Panychek\MoEx\Engine;
-use Panychek\MoEx\Market;
-use Panychek\MoEx\Board;
+use Panychek\MoEx\SecurityGroup;
+use Panychek\MoEx\Collection;
 use Panychek\MoEx\Client;
 
-class BoardTest extends TestCase
+class SecurityGroupTest extends TestCase
 {
     /**
      * @var \GuzzleHttp\Handler\MockHandler
@@ -48,25 +47,36 @@ class BoardTest extends TestCase
      */
     public function testGetters()
     {
-        $market_id = 'stock';
-        $engine_id = 'shares';
-        $board_id = 'TQBR';
         
-        // board
-        $body = file_get_contents(__DIR__ . '/Response/board.json');
+        // security groups
+        $body = file_get_contents(__DIR__ . '/Response/security_groups.json');
         $response = new Response(200, ['Content-Type' => 'application/json'], $body);
         
         $this->mock_handler->append($response);
         
-        $board = new Board($board_id, $market_id, $engine_id);
+        // collections
+        $body = file_get_contents(__DIR__ . '/Response/collections.json');
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
         
-        $this->assertEquals($board_id, $board->getId());
-        $this->assertEquals('Т+ Акции и ДР', $board->getTitle());
-        $this->assertEquals('Т+ Акции и ДР', $board->getProperty('title'));
+        $this->mock_handler->append($response);
+        
+        
+        $security_group_id = 'stock_shares';
+        $security_group = SecurityGroup::getInstance($security_group_id);
+        
+        $this->assertEquals($security_group_id, $security_group->getId());
+        $this->assertEquals('Акции', $security_group->getTitle());
+        $this->assertEquals('Акции', $security_group->getProperty('title'));
         
         $this->assertEquals(1, Client::getInstance()->getCounter());
         
-        $this->assertInstanceOf(Engine::class, $board->getEngine());
-        $this->assertInstanceOf(Market::class, $board->getMarket());
+        $collections = $security_group->getCollections();
+        $this->assertInternalType('array', $collections);
+        foreach ($collections as $collection) {
+            $this->assertInstanceOf(Collection::class, $collection);
+        }
+        
+        $collection = $security_group->getCollection('one');
+        $this->assertInstanceOf(Collection::class, $collection);
     }
 }

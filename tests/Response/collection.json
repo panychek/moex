@@ -1,0 +1,41 @@
+{
+"collections": {
+    "columns": ["id", "name", "title"], 
+    "data": [
+        [160, "stock_shares_one", "Уровень 1"]
+    ]
+},
+"boardgroups": {
+    "columns": ["id", "name", "title", "is_traded"], 
+    "data": [
+        [57, "stock_shares_tplus", "Т+: Основной режим", 1],
+        [6, "stock_shares", "Т0: Основной режим", 0],
+        [71, "stock_otc", "Внебиржевые сделки", 1],
+        [21, "stock_shares_sm", "Неполные лоты", 1],
+        [42, "stock_shares_darkpool", "Крупные пакеты", 1],
+        [59, "stock_ndm_tplus", "Т+: РПС с ЦК", 1],
+        [72, "stock_moexboard", "MOEX Board", 1],
+        [43, "stock_classica", "Classica", 0],
+        [44, "stock_classica_ndm", "Classica: Адресные сделки", 0],
+        [36, "stock_standard", "Standard", 0],
+        [41, "standard_ndm", "Standard: Адресные сделки ", 0],
+        [40, "stock_standard_repo", "Standard: РЕПО", 0],
+        [8, "stock_ndm", "РПС", 1],
+        [1, "stock_shares_repo", "РЕПО с акциями", 0],
+        [95, "stock_repo_interdealer_rub", "Междилерское РЕПО (RUB)", 1],
+        [94, "stock_repo_interdealer_usd", "Междилерское РЕПО (USD)", 1],
+        [90, "stock_repo_interdealer_eur", "Междилерское РЕПО (EUR)", 1],
+        [92, "stock_ccp_d_usd", "РЕПО с ЦК 1 день (USD)", 1],
+        [93, "stock_ccp_d_eur", "РЕПО с ЦК 1 день (EUR)", 1],
+        [76, "stock_ccp_w", "РЕПО с ЦК 7 дней (RUB)", 1],
+        [78, "stock_ccp_w_usd", "РЕПО с ЦК 7 дней (USD)", 1],
+        [79, "stock_ccp_w_eur", "РЕПО с ЦК 7 дней (EUR)", 1],
+        [50, "stock_ccp", "РЕПО с ЦК 1 день (RUB)", 1],
+        [65, "stock_ccp_ndm", "РЕПО с ЦК Адресное (RUB)", 1],
+        [91, "stock_ccp_ndm_usd", "РЕПО с ЦК Адресное (USD)", 1],
+        [96, "stock_ccp_ndm_eur", "РЕПО с ЦК Адресное (EUR)", 1],
+        [32, "stock_ndm_cc", "ЦК - РПС", 0],
+        [31, "stock_repo_cc", "ЦК - РЕПО", 0],
+        [30, "stock_shares_cc", "ЦК - Режим основных торгов", 0]
+    ]
+}}
