@@ -10,16 +10,9 @@
 namespace Panychek\MoEx\Tests;
 
 use PHPUnit\Framework\TestCase;
-use GuzzleHttp\Exception\TransferException;
-use Panychek\MoEx\Exchange;
-use Panychek\MoEx\Engine;
-use Panychek\MoEx\Market;
-use Panychek\MoEx\Board;
 use Panychek\MoEx\Client;
-use Panychek\MoEx\Exception\DataException;
-use Panychek\MoEx\Exception\InvalidArgumentException;
 
-class ClientTest extends TestCase
+class ClientIntegrationTest extends TestCase
 {
     protected function tearDown()
     {
@@ -27,121 +20,6 @@ class ClientTest extends TestCase
     }
     
     /**
-     * @group Unit
-     */
-    public function testFailedRequestThrowsException()
-    {
-        $mock = $this->getMockBuilder(Client::class)->setMethods(['doRequest'])->getMock();
-        $mock->method('doRequest')->will($this->throwException(new TransferException));
-        
-        $this->expectException(DataException::class);
-        $this->expectExceptionCode(DataException::FAILED_REQUEST);
-        
-        $reflection = new \ReflectionClass($mock);
-        $method = $reflection->getMethod('request');
-        $method->setAccessible(true);
-        
-        $response = $method->invokeArgs($mock, array('invalid_uri'));
-    }
-    
-    /**
-     * @group Unit
-     */
-    public function testInvalidJsonResponseThrowsException()
-    {
-        $mock = $this->getMockBuilder(Client::class)->setMethods(array('request'))->getMock();
-        $mock->method('request')->willReturn('Invalid JSON string');
-        
-        $this->expectException(DataException::class);
-        $this->expectExceptionCode(DataException::INVALID_RESPONSE);
-        
-        $reflection = new \ReflectionClass(Client::class);
-        $method = $reflection->getMethod('getData');
-        $method->setAccessible(true);
-        
-        $response = $method->invokeArgs($mock, array('uri'));
-    }
-    
-    /**
-     *
-     * @group Unit
-     * @dataProvider responseProvider
-     */
-    public function testUnsupportedResponseFormatThrowsException($response, $expected_status)
-    {
-        $mock = $this->getMockBuilder(Client::class)->setMethods(array('request'))->getMock();
-        
-        $response = json_encode($response);
-        $mock->method('request')->willReturn($response);
-        
-        if (!$expected_status) {
-            $this->expectException(DataException::class);
-            $this->expectExceptionCode(DataException::INVALID_RESPONSE);
-        }
-        
-        $reflection = new \ReflectionClass(Client::class);
-        $method = $reflection->getMethod('getData');
-        $method->setAccessible(true);
-        
-        $response = $method->invokeArgs($mock, array('uri'));
-        
-        $this->assertInternalType('array', $response);
-    }
-    
-    public function responseProvider()
-    {
-        return array(
-            array(
-                array(),
-                true
-            ),
-            array(
-                array(
-                    'section' => array()
-                ),
-                false
-            ),
-            array(
-                array(
-                    'section' => array(
-                        'columns' => array()
-                    )
-                ),
-                false
-            ),
-            array(
-                array(
-                    'section' => array(
-                        'data' => array()
-                    )
-                ),
-                false
-            ),
-            array(
-                array(
-                    'section' => array(
-                        'columns' => array(),
-                        'data' => array()
-                    )
-                ),
-                true
-            )
-        );
-    }
-    
-    /**
-     * @group Unit
-     */
-    public function testUnsupportedLanguageThrowsException()
-    {
-        $client = Client::getInstance();
-        
-        $this->expectException(InvalidArgumentException::class);
-        $client->setLanguage('invalid_language');
-    }
-    
-    /**
-     *
      * @group Integration
      */
     public function testEngineListSuccessfulResponse()
@@ -153,7 +31,6 @@ class ClientTest extends TestCase
     }
     
     /**
-     *
      * @group Integration
      */
     public function testEngineSuccessfulResponse()
@@ -171,7 +48,6 @@ class ClientTest extends TestCase
     }
     
     /**
-     *
      * @group Integration
      */
     public function testTurnoversSuccessfulResponse()
@@ -189,7 +65,6 @@ class ClientTest extends TestCase
     }
     
     /**
-     *
      * @group Integration
      */
     public function testMarketListSuccessfulResponse()
@@ -205,7 +80,6 @@ class ClientTest extends TestCase
     }
     
     /**
-     *
      * @group Integration
      */
     public function testMarketSuccessfulResponse()
@@ -229,7 +103,6 @@ class ClientTest extends TestCase
     }
 
     /**
-     *
      * @group Integration
      */
     public function testBoardSuccessfulResponse()
@@ -247,7 +120,6 @@ class ClientTest extends TestCase
     }
     
     /**
-     *
      * @group Integration
      */
     public function testSecuritySearchSuccessfulResponse()
@@ -263,7 +135,6 @@ class ClientTest extends TestCase
     }
     
     /**
-     *
      * @group Integration
      */
     public function testSecuritySuccessfulResponse()
@@ -280,7 +151,6 @@ class ClientTest extends TestCase
     }
     
     /**
-     *
      * @group Integration
      */
     public function testSecurityIndicesSuccessfulResponse()
@@ -296,7 +166,6 @@ class ClientTest extends TestCase
     }
     
     /**
-     *
      * @group Integration
      */
     public function testSecurityGroupsSuccessfulResponse()
@@ -311,7 +180,6 @@ class ClientTest extends TestCase
     }
     
     /**
-     *
      * @group Integration
      */
     public function testSecurityGroupCollectionsSuccessfulResponse()
@@ -327,7 +195,6 @@ class ClientTest extends TestCase
     }
     
     /**
-     *
      * @group Integration
      */
     public function testCollectionSuccessfulResponse()
@@ -345,7 +212,6 @@ class ClientTest extends TestCase
     }
     
     /**
-     *
      * @group Integration
      */
     public function testCollectionSecuritiesSuccessfulResponse()
@@ -362,7 +228,6 @@ class ClientTest extends TestCase
     }
 
     /**
-     *
      * @group Integration
      */
     public function testMarketDataSuccessfulResponse()
@@ -382,7 +247,6 @@ class ClientTest extends TestCase
     }
     
     /**
-     *
      * @group Integration
      */
     public function testSecurityDatesSuccessfulResponse()
@@ -422,7 +286,6 @@ class ClientTest extends TestCase
     }
     
     /**
-     *
      * @group Integration
      */
     public function testCapitalizationSuccessfulResponse()

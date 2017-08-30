@@ -50,6 +50,12 @@ The default language is **Russian**. You can switch to English like this:
 $security->setLanguage('en');
 ```
 
+### Authentication
+If you're subscribed to any paid services and want to access their private data, you should authenticate yourself first using your Passport account credentials:
+```php
+Exchange::authenticate($username, $password);
+```
+
 ### Market data
 
 #### Shares, currency pairs and futures
@@ -209,6 +215,8 @@ The following codes indicate the reason for the failure:
  * `FAILED_REQUEST` - all network errors
  * `INVALID_RESPONSE` - the response is not a valid JSON string or its format is not supported
  * `EMPTY_RESULT` - the response contains no actual data
+
+A `Panychek\MoEx\Exception\AuthenticationException` exception is thrown in case of authentication failure.
 
 All exceptions thrown by the library implement the `Panychek\MoEx\Exception\ExceptionInterface` interface.
 

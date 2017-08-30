@@ -77,6 +77,18 @@ class Exchange extends AbstractEntry
         Collection::destroyInstances();
     }
     
+    
+    /**
+     * Wrapper for the Client::authenticate() method
+     * 
+     * @param  string $username
+     * @param  array  $password
+     * @return true
+     */
+    public static function authenticate(string $username, string $password) {
+        return Client::getInstance()->authenticate($username, $password);
+    }
+    
     /**
      * Set the engines
      *

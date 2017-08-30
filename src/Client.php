@@ -15,9 +15,16 @@ class Client
 {
     const API_URL = 'http://iss.moex.com/iss/';
     
+    const AUTH_URL = 'https://passport.moex.com/authenticate';
+    
     const TIMEZONE = 'Europe/Moscow';
     
     const DATE_FORMAT = 'Y-m-d';
+    
+    /**
+     * @var int The name of the cookie that holds the authentication certificate
+     */
+    const AUTH_CERT_COOKIE = 'MicexPassportCert';
     
     /**
      * @var \Panychek\MoEx\Client
@@ -28,6 +35,11 @@ class Client
      * @var \GuzzleHttp\Client
      */
     private $client = null;
+    
+    /**
+     * @var \GuzzleHttp\Cookie\CookieJar
+     */
+    private $cookie_jar = null;
     
     /**
      * @var array
@@ -171,6 +183,10 @@ class Client
                 'query' => $params
             );
             
+            if (!empty($this->cookie_jar)) {
+                $options['cookies'] = $this->cookie_jar; 
+            }
+            
             $response = $this->doRequest($uri, $options);
             
             $this->increaseCounter();
@@ -195,6 +211,53 @@ class Client
      */
     protected function doRequest(string $uri, array $options) {
         return $this->client->get($uri, $options);
+    }
+    
+    /**
+     * Authenticate a user against the Moscow Exchange Passport
+     * 
+     * @param  string $username
+     * @param  array  $password
+     * @throws Exception\AuthenticationException if the authentication fails
+     * @return true
+     */
+    public function authenticate(string $username, string $password) {
+        try {
+            $options =  array(
+                'auth' => array(
+                    $username,
+                    $password
+                )
+            );
+            
+            $response = $this->doRequest(self::AUTH_URL, $options);
+            
+            $cookies = $response->getHeader('Set-Cookie');
+        
+            $this->cookie_jar = new \GuzzleHttp\Cookie\CookieJar;
+            
+            $cert_found = false;
+            foreach ($cookies as $cookie_str) {
+               $cookie = \GuzzleHttp\Cookie\SetCookie::fromString($cookie_str);
+                
+               if ($cookie->getName() == self::AUTH_CERT_COOKIE) {
+                   $cert_found = true;
+               }
+               
+               $this->cookie_jar->setCookie($cookie);
+            }
+            
+            if (!$cert_found) {
+                $message = 'Authentication certificate not found';
+                throw new Exception\AuthenticationException($message);
+            }
+            
+            return true;
+            
+        } catch (TransferException $e) {
+            $message = 'Authentication failed. ' . $e->getMessage();
+            throw new Exception\AuthenticationException($message, $e->getCode(), $e);
+        }
     }
 
     /**
