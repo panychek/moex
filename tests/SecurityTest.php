@@ -20,6 +20,7 @@ use Panychek\MoEx\Board;
 use Panychek\MoEx\Security;
 use Panychek\MoEx\Client;
 use Panychek\MoEx\Exception\BadMethodCallException;
+use Panychek\MoEx\Exception\InvalidArgumentException;
 
 class SecurityTest extends TestCase
 {
@@ -111,8 +112,11 @@ class SecurityTest extends TestCase
         
         $security_name = '#moex';
         $security = new Security($security_name);
+        $this->assertEquals('ru', $security->getLanguage());
+        
         $security->setLanguage('en');
         
+        $this->assertEquals('en', $security->getLanguage());
         $this->assertEquals('MoscowExchange', $security->getName());
     }
 
@@ -227,5 +231,33 @@ class SecurityTest extends TestCase
         $this->assertArrayHasKey('volume', $day);
         
         $this->assertEquals(4, Client::getInstance()->getCounter());
+    }
+
+    /**
+     * @group Unit
+     */
+    public function testInvalidDateStringThrowsException()
+    {
+        $security_name = '#moex';
+        $security = new Security($security_name);
+        
+        $this->expectException(InvalidArgumentException::class);
+        
+        $from = 'Invalid date';
+        $data = $security->getHistoricalQuotes($from);
+    }
+    
+    /**
+     * @group Unit
+     */
+    public function testInvalidDateTypeThrowsException()
+    {
+        $security_name = '#moex';
+        $security = new Security($security_name);
+        
+        $this->expectException(InvalidArgumentException::class);
+        
+        $from = 0;
+        $data = $security->getHistoricalQuotes($from);
     }
 }

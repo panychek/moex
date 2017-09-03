@@ -10,6 +10,7 @@
 namespace Panychek\MoEx\Tests;
 
 use PHPUnit\Framework\TestCase;
+use GuzzleHttp\TransferStats;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -148,6 +149,7 @@ class ClientUnitTest extends TestCase
      */
     public function testSuccessfulAuthentication()
     {
+        // basic authentication
         $headers = array(
             'Set-Cookie' => 'MicexPassportCert=value; path=/; expires=Sun, 10-Sep-17 11:34:08 GMT; domain=.moex.com'
         );
@@ -155,10 +157,30 @@ class ClientUnitTest extends TestCase
         $response = new Response(200, $headers);
         $this->mock_handler->append($response);
         
+        // engines
+        $body = file_get_contents(__DIR__ . '/Response/engines.json');
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        
+        $this->mock_handler->append($response);
+        
+        $client = Client::getInstance();
+        
         $username = 'username';
         $password = 'password';
-        $status = Client::getInstance()->authenticate($username, $password);
+        $status = $client->authenticate($username, $password);
         $this->assertTrue($status);
+        
+        // ensuring that the cookie is being sent
+        $client->setRequestOption('on_stats', function (TransferStats $stats) {
+            $headers = $stats->getRequest()->getHeaders();
+            
+            $cookie = \GuzzleHttp\Cookie\SetCookie::fromString($headers['Cookie'][0]);
+            
+            $this->assertEquals(Client::AUTH_CERT_COOKIE, $cookie->getName());
+            $this->assertEquals('value', $cookie->getValue());
+        });
+        
+        $this->assertInternalType('array', $client->getEngineList());
     }
     
     /**
@@ -198,6 +220,19 @@ class ClientUnitTest extends TestCase
         
         Client::setExtraOption('handler', null);
         Client::destroyInstance();
+    }
+    
+    /**
+     * @group Unit
+     */
+    public function testLanguages()
+    {
+        $client = Client::getInstance();
+        
+        $this->assertEquals('ru', $client->getLanguage());
+        
+        $client->setLanguage('en');
+        $this->assertEquals('en', $client->getLanguage());
     }
     
     /**

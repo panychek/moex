@@ -37,9 +37,9 @@ class Client
     private $client = null;
     
     /**
-     * @var \GuzzleHttp\Cookie\CookieJar
+     * @var array Request options for the Guzzle client
      */
-    private $cookie_jar = null;
+    private $request_options = array();
     
     /**
      * @var array
@@ -114,6 +114,18 @@ class Client
     }
     
     /**
+     * Set a request option for the Guzzle client
+     * 
+     * @see    http://guzzle.readthedocs.io/en/latest/request-options.html
+     * @param  string $option
+     * @param  mixed  $value
+     * @return void
+     */
+    public function setRequestOption($option, $value) {
+        $this->request_options[$option] = $value;
+    }
+    
+    /**
      * Set the language
      *
      * @param  string $lang
@@ -183,8 +195,8 @@ class Client
                 'query' => $params
             );
             
-            if (!empty($this->cookie_jar)) {
-                $options['cookies'] = $this->cookie_jar; 
+            if (!empty($this->request_options)) {
+                $options = array_merge($options, $this->request_options);
             }
             
             $response = $this->doRequest($uri, $options);
@@ -234,7 +246,7 @@ class Client
             
             $cookies = $response->getHeader('Set-Cookie');
         
-            $this->cookie_jar = new \GuzzleHttp\Cookie\CookieJar;
+            $this->request_options['cookies'] = new \GuzzleHttp\Cookie\CookieJar;
             
             $cert_found = false;
             foreach ($cookies as $cookie_str) {
@@ -244,7 +256,7 @@ class Client
                    $cert_found = true;
                }
                
-               $this->cookie_jar->setCookie($cookie);
+               $this->request_options['cookies']->setCookie($cookie);
             }
             
             if (!$cert_found) {

@@ -18,6 +18,7 @@ use Panychek\MoEx\Engine;
 use Panychek\MoEx\Market;
 use Panychek\MoEx\Client;
 use Panychek\MoEx\SecurityGroup;
+use Panychek\MoEx\Exception\InvalidArgumentException;
 
 class ExchangeTest extends TestCase
 {
@@ -95,5 +96,17 @@ class ExchangeTest extends TestCase
         $this->assertEquals(1756336, $exchange->getNumberOfTrades('2017-07-06'));
         
         $this->assertEquals(3, Client::getInstance()->getCounter());
+    }
+
+    /**
+     * @group Unit
+     */
+    public function testUnsupportedCurrencyThrowsException()
+    {
+        $exchange = Exchange::getInstance();
+        
+        $this->expectException(InvalidArgumentException::class);
+        
+        $data = $exchange->getTurnovers('EUR');
     }
 }

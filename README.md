@@ -2,6 +2,7 @@ Moscow Exchange ISS Client
 =======================
 
 [![Build Status](https://travis-ci.org/panychek/moex.svg?branch=master)](https://travis-ci.org/panychek/moex)
+[![Coverage Status](https://coveralls.io/repos/github/panychek/moex/badge.svg?branch=master)](https://coveralls.io/github/panychek/moex?branch=master)
 
 A PHP library that provides easy access to [Moscow Exchange](https://www.moex.com/) data via its [Informational & Statistical Server](https://www.moex.com/a2920).
 
@@ -69,16 +70,16 @@ Available methods:
 * `getDailyLow`
 * `getLastUpdate`
 * `getVolume($currency = 'RUB')`
-* `getChange($range = 'day', $measure = 'currency')`
-
 ###### Example usage
-
+```php
+$volume_rub = $security->getVolume('RUB');
+$volume_usd = $security->getVolume('USD');
+```
+* `getChange($range = 'day', $measure = 'currency')`
+###### Example usage
 ```php
 $daily_change = $security->getChange('day');
 $daily_percentage_change = $security->getChange('day', '%');
-
-$volume_rub = $security->getVolume('RUB');
-$volume_usd = $security->getVolume('USD');
 ```
 
 #### Bonds
@@ -105,16 +106,16 @@ Available methods:
 * `getLastUpdate`
 * `getVolume($currency = 'RUB')`
 * `getChange($range = 'day', $measure = 'bp')`
-* `getCapitalization($currency = 'RUB')`
-
 ###### Example usage
-
 ```php
 $rtsi = new Security('RTS Index');
 
 $year_to_date_return = $rtsi->getChange('YTD', '%');
 $month_to_date_return = $rtsi->getChange('MTD', '%');
-
+```
+* `getCapitalization($currency = 'RUB')`
+###### Example usage
+```php
 $capitalization_rub = $rtsi->getCapitalization('RUB');
 $capitalization_usd = $rtsi->getCapitalization('USD');
 ```
