@@ -209,6 +209,22 @@ $first_level = $shares_group->getCollection('one');
 $securities = $first_level->getSecurities();
 ```
 
+### Debugging
+To see what's going on at the network level, define a logging callback function and pass it to the client. Once done, it will be invoked on each API call with its statistics.
+```php
+$logger = function(\GuzzleHttp\TransferStats $stats) {
+    $request = $stats->getRequest();    
+    $uri = $request->getUri();
+    
+    $time = $stats->getTransferTime();
+    
+    $html = 'Request URI: %s<br />Time: %s<br /><br />';
+    echo sprintf($html, $uri, $time);
+};
+
+Client::getInstance()->setRequestLogger($logger);
+```
+
 ### Handling errors
 A `Panychek\MoEx\Exception\DataException` exception is thrown in the event of any data related error.
 The following codes indicate the reason for the failure:

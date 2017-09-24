@@ -126,6 +126,16 @@ class Client
     }
     
     /**
+     * Set a request logger
+     * 
+     * @param  Callable $logger
+     * @return void
+     */
+    public function setRequestLogger(Callable $logger) {
+        $this->setRequestOption('on_stats', $logger);
+    }
+    
+    /**
      * Set the language
      *
      * @param  string $lang

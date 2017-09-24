@@ -1,0 +1,23 @@
+{
+"description": {
+    "columns": ["name", "title", "value", "type", "sort_order", "is_hidden", "precision"], 
+    "data": [
+        ["SECID", "Код серии инструмента", "SiZ7", "string", 1, 0, null],
+        ["NAME", "Наименование серии инструмента", "Фьючерсный контракт на курс безналичного доллара Si-12.17", "string", 2, 0, null],
+        ["SHORTNAME", "Краткое наименование", "Si-12.17", "string", 3, 0, null],
+        ["LATNAME", "Английское наименование", "Si-12.17", "string", 4, 1, null],
+        ["LSTTRADE", "Последний торговый день", "2017-12-21", "date", 10, 0, null],
+        ["LSTDELDATE", "День исполнения", "2017-12-21", "string", 11, 0, null],
+        ["ASSETCODE", "Код базового актива", "Si", "string", 20, 0, null],
+        ["TYPENAME", "Вид\/категория ценной бумаги", "Фьючерс", "string", 71, 0, null],
+        ["GROUP", "Код типа инструмента", "futures_forts", "string", 72, 1, null],
+        ["TYPE", "Тип бумаги", "futures", "string", 10000, 1, null],
+        ["GROUPNAME", "Типа инструмента", "Фьючерсы", "string", 10011, 1, null]
+    ]
+},
+"boards": {
+    "columns": ["secid", "boardid", "title", "board_group_id", "market_id", "market", "engine_id", "engine", "is_traded", "decimals", "history_from", "history_till", "listed_from", "listed_till", "is_primary"], 
+    "data": [
+        ["SiZ7", "RFUD", "Фьючерсы", 45, 22, "forts", 4, "futures", 1, 0, "2006-10-25", "2017-09-21", "2006-10-25", "2017-09-22", 1]
+    ]
+}}

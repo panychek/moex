@@ -1,0 +1,19 @@
+{
+"securities": {
+    "columns": ["SECID", "BOARDID", "SHORTNAME", "SECNAME", "PREVSETTLEPRICE", "STATUS", "DECIMALS", "MINSTEP", "LASTTRADEDATE", "LASTDELDATE", "SECTYPE", "LATNAME", "ASSETCODE", "PREVOPENPOSITION", "LOTVOLUME", "INITIALMARGIN", "HIGHLIMIT", "LOWLIMIT", "STEPPRICE"], 
+    "data": [
+        ["SiZ7", "RFUD", "Si-12.17", "Фьючерсный контракт на курс безналичного доллара Si-12.17", 58889, null, 0, 1, "2017-12-21", "2017-12-21", "Si", "Si-12.17", "Si", 3296352, 1000, 3534.00, 1767.00000, 1767.00000, 1.00000]
+    ]
+},
+"marketdata": {
+    "columns": ["SECID", "BOARDID", "BID", "OFFER", "SPREAD", "OPEN", "HIGH", "LOW", "LAST", "QUANTITY", "LASTCHANGE", "SETTLEPRICE", "SETTLETOPREVSETTLE", "OPENPOSITION", "NUMTRADES", "VOLTODAY", "VALTODAY", "VALTODAY_USD", "UPDATETIME", "LASTCHANGEPRCNT", "BIDDEPTH", "BIDDEPTHT", "NUMBIDS", "OFFERDEPTH", "OFFERDEPTHT", "NUMOFFERS", "TIME", "SETTLETOPREVSETTLEPRC", "SEQNUM", "SYSTIME", "TRADEDATE", "LASTTOPREVPRICE", "OICHANGE"], 
+    "data": [
+        ["SiZ7", "RFUD", null, null, 2, 58883, 58883, 58346, 58358, 3, 1, 58358, -531, 3526602, 202284, 1060377, 62097497536, 1066523843, "12:30:04", 0, null, null, null, null, null, null, "12:30:04", -0.91, 83641184, "2017-09-22 12:45:04", "2017-09-22", -0.9, -230250]
+    ]
+},
+"dataversion": {
+    "columns": ["version", "seqnum"], 
+    "data": [
+        [208, 0]
+    ]
+}}

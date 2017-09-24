@@ -1,0 +1,27 @@
+{
+"description": {
+    "columns": ["name", "title", "value", "type", "sort_order", "is_hidden", "precision"], 
+    "data": [
+        ["SECID", "Код индекса", "RTSI", "string", 1, 0, null],
+        ["SHORTNAME", "Краткое наименование индекса", "Индекс РТС", "string", 2, 0, null],
+        ["NAME", "Полное наименование", "Индекс РТС", "string", 3, 0, null],
+        ["LATNAME", "Английское наименование", "RTS Index", "string", 4, 1, null],
+        ["CURRENCYID", "Валюта расчета", "USD", "string", 7, 0, null],
+        ["INITIALVALUE", "Начальное значение индекса", "100", "number", 8, 0, null],
+        ["INITIALCAPITALIZATION", "Начальная капитализация", "12666080264", "number", 9, 0, null],
+        ["INITIALD", "Начальное значение коэффициента D", "126660802.64", "number", 10, 0, null],
+        ["ISSUEDATE", "Дата начала публикации", "1995-09-01", "date", 11, 0, null],
+        ["TYPENAME", "Вид\/категория ценной бумаги", "Индекс фондового рынка", "string", 71, 0, null],
+        ["GROUP", "Код типа инструмента", "stock_index", "string", 72, 1, null],
+        ["TYPE", "Тип бумаги", "stock_index", "string", 10000, 1, null],
+        ["GROUPNAME", "Типа инструмента", "Индексы", "string", 10011, 1, null]
+    ]
+},
+"boards": {
+    "columns": ["secid", "boardid", "title", "board_group_id", "market_id", "market", "engine_id", "engine", "is_traded", "decimals", "history_from", "history_till", "listed_from", "listed_till", "is_primary"], 
+    "data": [
+        ["RTSI", "SNDX", "Индексы фондового рынка", 9, 5, "index", 1, "stock", 0, 2, "2016-10-14", "2016-10-14", "2016-02-24", "2016-10-14", 0],
+        ["RTSI", "RTSI", "Индексы РТС", 9, 5, "index", 1, "stock", 1, 2, "1995-09-01", "2017-09-13", "1995-09-01", "2017-09-13", 1],
+        ["RTSI", "CLMR", "Classica: рыночные сделки", 43, 25, "classica", 1, "stock", 0, 5, null, null, "2013-12-30", "2013-12-30", 0]
+    ]
+}}

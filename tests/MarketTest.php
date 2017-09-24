@@ -44,12 +44,10 @@ class MarketTest extends TestCase
     
     /**
      * @group Unit
+     * @dataProvider marketProvider
      */
-    public function testGetters()
+    public function testGetters(string $market_id, string $engine_id, string $expected_title)
     {
-        $market_id = 'shares';
-        $engine_id = 'stock';
-        
         $response_file = sprintf('%s/Response/%s_engine_markets.json', __DIR__, $engine_id);
         $body = file_get_contents($response_file);
         $response = new Response(200, ['Content-Type' => 'application/json'], $body);
@@ -59,11 +57,50 @@ class MarketTest extends TestCase
         $market = Market::getInstance($market_id, $engine_id);
         
         $this->assertEquals($market_id, $market->getId());
-        $this->assertEquals('Рынок акций', $market->getTitle());
-        $this->assertEquals('Рынок акций', $market->getProperty('title'));
+        $this->assertEquals($expected_title, $market->getTitle());
+        $this->assertEquals($expected_title, $market->getProperty('title'));
         
         $this->assertEquals(1, Client::getInstance()->getCounter());
         
         $this->assertInstanceOf(Engine::class, $market->getEngine());
+    }
+    
+    public function marketProvider()
+    {
+        $body = file_get_contents(__DIR__ . '/Response/engines.json');
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        
+        $mock_handler = new MockHandler(array($response));
+        $handler = HandlerStack::create($mock_handler);
+        
+        Client::setExtraOption('handler', $handler);
+        $client = Client::getInstance();
+        
+        $raw_data = $client->getEngineList();
+        $engines = $raw_data['engines'];
+        
+        $data = array();
+        foreach ($engines as $engine) {
+            $engine_id = $engine['name'];
+            
+            // markets
+            $response_file = sprintf('%s/Response/%s_engine_markets.json', __DIR__, $engine_id);
+            $body = file_get_contents($response_file);
+            $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+            
+            $mock_handler->append($response);
+            
+            $raw_data = $client->getMarketList($engine_id);
+            $markets = $raw_data['markets'];
+            
+            foreach ($markets as $market) {
+                $data[] = array($market['NAME'], $engine_id, $market['title']);
+            }
+        }
+        
+        Client::setExtraOption('handler', null);
+        Client::destroyInstance();
+        
+        return $data;
     }
 }

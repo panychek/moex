@@ -1,0 +1,19 @@
+{
+"securities": {
+    "columns": ["SECID", "BOARDID", "NAME", "DECIMALS", "SHORTNAME", "ANNUALHIGH", "ANNUALLOW", "CURRENCYID", "CALCMODE"], 
+    "data": [
+        ["RTSI", "RTSI", "Индекс РТС", 2, "Индекс РТС", 1196.99, 953.12, "USD", null]
+    ]
+},
+"marketdata": {
+    "columns": ["SECID", "BOARDID", "LASTVALUE", "OPENVALUE", "CURRENTVALUE", "LASTCHANGE", "LASTCHANGETOOPENPRC", "LASTCHANGETOOPEN", "UPDATETIME", "LASTCHANGEPRC", "VALTODAY", "MONTHCHANGEPRC", "YEARCHANGEPRC", "SEQNUM", "SYSTIME", "TIME", "VALTODAY_USD", "LASTCHANGEBP", "MONTHCHANGEBP", "YEARCHANGEBP", "CAPITALIZATION", "CAPITALIZATION_USD", "HIGH", "LOW", "TRADEDATE"], 
+    "data": [
+        ["RTSI", "RTSI", 1118.38, 1116.82, 1125.69, 7.31, 0.79, 8.87, "18:50:42", 0.65, 31569273506, 2.28, -2.31, 1505404242835, "2017-09-14 18:50:42", "18:50:00", 549680901, 731, 2511, -2664, 9511542707105, 165613990582, 1127.45, 1112.43, "2017-09-14"]
+    ]
+},
+"dataversion": {
+    "columns": ["version", "seqnum"], 
+    "data": [
+        [6263, 366215]
+    ]
+}}

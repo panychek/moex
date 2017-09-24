@@ -151,7 +151,7 @@ class ClientUnitTest extends TestCase
     {
         // basic authentication
         $headers = array(
-            'Set-Cookie' => 'MicexPassportCert=value; path=/; expires=Sun, 10-Sep-17 11:34:08 GMT; domain=.moex.com'
+            'Set-Cookie' => 'MicexPassportCert=value; path=/; expires=Tue, 01-Jan-30 00:00:00 GMT; domain=.moex.com'
         );
         
         $response = new Response(200, $headers);
