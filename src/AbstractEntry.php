@@ -22,6 +22,13 @@ abstract class AbstractEntry
     private $properties = array();
     
     /**
+     * Date string for the DateTime constructor
+     *
+     * @var string
+     */
+    private $current_datetime_str = 'now';
+    
+    /**
      * Set the id
      *
      * @param  string $id
@@ -88,6 +95,29 @@ abstract class AbstractEntry
     }
     
     /**
+     * Set the current date and time (for unit tests)
+     *
+     * @param  string $string
+     * @return void
+     */
+    public function setCurrentDateTime(string $string)
+    {
+        $this->current_datetime_str = $string;
+    }
+    
+    /**
+     * Get the current date and time
+     *
+     * @return \DateTime
+     */
+    private function getCurrentDateTime() {
+        $timezone = new \DateTimeZone(Client::TIMEZONE);
+        $date = new \DateTime($this->current_datetime_str, $timezone);
+        
+        return $date;
+    }
+    
+    /**
      * Set the language
      *
      * @param  string $lang
@@ -137,6 +167,7 @@ abstract class AbstractEntry
      *
      * @param  string $currency
      * @throws \Panychek\MoEx\Exception\InvalidArgumentException
+     * @return void
      */
     protected function validateCurrency(string $currency)
     {
@@ -153,6 +184,7 @@ abstract class AbstractEntry
      *
      * @param  \DateTime|string|false $date
      * @throws \Panychek\MoEx\Exception\InvalidArgumentException
+     * @return void
      */
     protected function validateDate($date)
     {
@@ -180,12 +212,12 @@ abstract class AbstractEntry
      * Get a date string
      *
      * @param  \DateTime|false $date
+     * @return string
      */
     protected function getDateString($date)
     {
         if ($date === false) { // today
-            $timezone = new \DateTimeZone(Client::TIMEZONE);
-            $date = new \DateTime('now', $timezone);            
+            $date = $this->getCurrentDateTime();
         }
         
         return $date->format(Client::DATE_FORMAT);

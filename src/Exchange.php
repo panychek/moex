@@ -197,11 +197,11 @@ class Exchange extends AbstractEntry
                         'usd' => $v['VALTODAY_USD']
                     );
                         
-                    if ($v['NAME'] == 'TOTALS') {
+                    if ($v['NAME'] == 'TOTALS') { // totals
                         $this->turnovers[$date_str] = $data;
                         $this->num_trades[$date_str] = $v['NUMTRADES'];
                         
-                    } else {
+                    } else { // specific engine
                         $engine = Engine::getInstance($v['NAME']);
                         
                         $engine->setProperty('title', $v['TITLE']);

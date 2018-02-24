@@ -57,7 +57,7 @@ If you're subscribed to any paid services and want to access their private data,
 Exchange::authenticate($username, $password);
 ```
 
-### Market data
+### Retrieving market data
 
 #### Shares, currency pairs and futures
 

@@ -217,7 +217,7 @@ abstract class Engine extends AbstractEntry
         
         $date_str = $this->getDateString($date);
         
-        if (empty($this->num_trades[$date_str])) {
+        if (!array_key_exists($date_str, $this->num_trades)) {
             Exchange::getInstance()->setTurnovers($date);
         }
         

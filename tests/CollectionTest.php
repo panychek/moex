@@ -18,6 +18,7 @@ use Panychek\MoEx\Security;
 use Panychek\MoEx\SecurityGroup;
 use Panychek\MoEx\Collection;
 use Panychek\MoEx\Client;
+use Panychek\MoEx\Exception\DataException;
 
 class CollectionTest extends TestCase
 {
@@ -97,5 +98,47 @@ class CollectionTest extends TestCase
         foreach ($securities as $security) {
             $this->assertInstanceOf(Security::class, $security);
         }
+    }
+
+    /**
+     * @group Unit
+     */
+    public function testUnexpectedCollectionResponseThrowsException()
+    {
+        $body = '{}';
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+            
+        $this->mock_handler->append($response);
+        
+        $security_group_id = 'stock_shares';
+        $collection_id = 'stock_shares_one';
+        
+        $collection = Collection::getInstance($collection_id, $security_group_id);
+        
+        $this->expectException(DataException::class);
+        $this->expectExceptionCode(DataException::EMPTY_RESULT);
+        
+        $collection->getTitle();
+    }
+    
+    /**
+     * @group Unit
+     */
+    public function testUnexpectedSecuritiesResponseThrowsException()
+    {
+        $body = '{}';
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+            
+        $this->mock_handler->append($response);
+        
+        $security_group_id = 'stock_shares';
+        $collection_id = 'stock_shares_one';
+        
+        $collection = Collection::getInstance($collection_id, $security_group_id);
+        
+        $this->expectException(DataException::class);
+        $this->expectExceptionCode(DataException::EMPTY_RESULT);
+        
+        $collection->getSecurities();
     }
 }

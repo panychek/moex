@@ -18,6 +18,7 @@ use Panychek\MoEx\Engine;
 use Panychek\MoEx\Market;
 use Panychek\MoEx\Board;
 use Panychek\MoEx\Client;
+use Panychek\MoEx\Exception\DataException;
 
 class EngineTest extends TestCase
 {
@@ -69,8 +70,8 @@ class EngineTest extends TestCase
         
         $this->mock_handler->append($response);
         
-        
         $engine = Engine::getInstance($engine_id);
+        $engine->setCurrentDateTime('2017-07-07');
         
         $this->assertEquals($engine_id, $engine->getId());
         $this->assertEquals($expected_title, $engine->getTitle());
@@ -89,8 +90,15 @@ class EngineTest extends TestCase
         $turnovers = $engine->getTurnovers();
         $this->assertTrue(in_array(gettype($turnovers), array('NULL', 'double')));
         
+        // if there are no turnovers, there are no number of trades
+        if (!empty($turnovers)) {
+            $num_trades = $engine->getNumberOfTrades();
+            $this->assertTrue(in_array(gettype($num_trades), array('NULL', 'integer')));
+        }
+        
         $this->assertEquals(3, Client::getInstance()->getCounter());
         
+        // capitalization
         if (method_exists($engine, 'getCapitalization')) {
             $response_file = sprintf('%s/Response/%s_engine_capitalization.json', __DIR__, $engine_id);
             $body = file_get_contents($response_file);
@@ -101,6 +109,18 @@ class EngineTest extends TestCase
             $this->assertInternalType('float', $engine->getCapitalization());
             
             $this->assertEquals(4, Client::getInstance()->getCounter());
+            
+            
+            // unexpected response
+            $body = '{}';
+            $capitalization_response = new Response(200, ['Content-Type' => 'application/json'], $body);
+            
+            $this->mock_handler->append($capitalization_response);
+            
+            $this->expectException(DataException::class);
+            $this->expectExceptionCode(DataException::EMPTY_RESULT);
+            
+            $engine->getCapitalization();
         }
     }
     

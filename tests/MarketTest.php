@@ -65,6 +65,28 @@ class MarketTest extends TestCase
         $this->assertInstanceOf(Engine::class, $market->getEngine());
     }
     
+    /**
+     * @group Unit
+     */
+    public function testBoards()
+    {
+        $response_file = sprintf('%s/Response/shares_market.json', __DIR__);
+        $body = file_get_contents($response_file);
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        
+        $this->mock_handler->append($response);
+        
+        $market_id = 'shares';
+        $engine_id = 'stock';
+        
+        $market = Market::getInstance($market_id, $engine_id);
+        
+        $boards = $market->getBoards();
+        $this->assertInternalType('array', $boards);
+        
+        $this->assertEquals(1, Client::getInstance()->getCounter());
+    }
+        
     public function marketProvider()
     {
         $body = file_get_contents(__DIR__ . '/Response/engines.json');
