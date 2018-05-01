@@ -385,6 +385,10 @@ class Security extends AbstractEntry
             $to
         );
         
+        if (empty($raw_data['history'])) {
+            return array();
+        }
+        
         $fields = array(
             'open', 'high', 'low', 'close', 'volume'
         );
