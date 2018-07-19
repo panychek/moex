@@ -2,6 +2,7 @@ Moscow Exchange ISS Client
 =======================
 
 [![Build Status](https://travis-ci.org/panychek/moex.svg?branch=master)](https://travis-ci.org/panychek/moex)
+[![codecov](https://codecov.io/gh/panychek/moex/branch/master/graph/badge.svg)](https://codecov.io/gh/panychek/moex)
 [![Coverage Status](https://coveralls.io/repos/github/panychek/moex/badge.svg?branch=master)](https://coveralls.io/github/panychek/moex?branch=master)
 
 A PHP library that provides easy access to [Moscow Exchange](https://www.moex.com/) data via its [Informational & Statistical Server](https://www.moex.com/a2920).
