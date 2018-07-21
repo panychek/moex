@@ -425,7 +425,7 @@ class Client
      * @param  int $limit
      * @return array
      */
-    public function findSecurity($string, $limit = 100)
+    public function findSecurity(string $string, int $limit = 100)
     {
         $uri = 'securities';
         

@@ -11,6 +11,8 @@ namespace Panychek\MoEx;
 
 abstract class Engine extends AbstractEntry
 {
+    use ValidationTrait;
+    
     /**
      * @var array
      */
@@ -59,36 +61,12 @@ abstract class Engine extends AbstractEntry
     }
     
     /**
-     * Call a method
-     * 
-     * @param  string $name      Method name to call
-     * @param  array  $arguments Method arguments
-     * @throws Exception\BadMethodCallException
-     * @return mixed
-     */
-    public function __call(string $name, array $arguments)
-    {
-        if ($this->isGetterMethod($name)) {
-            
-            $this->loadInfo();
-            
-            $property = $this->getPropertyFromMethod($name);
-            if (isset($this->getProperties()[$property])) {
-                return $this->getProperties()[$property];                
-            }
-        }
-        
-        $message = sprintf('Method "%s" does not exist', $name);
-        throw new Exception\BadMethodCallException($message);
-    }
-    
-    /**
      * Load the info
      *
      * @throws Exception\DataException for unknown engines
      * @return void
      */
-    private function loadInfo()
+    protected function loadInfo()
     {
         if(empty($this->getProperties())) { // haven't been loaded yet
             $engine = Client::getInstance()->getEngine($this->getId());

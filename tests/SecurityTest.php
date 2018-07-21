@@ -18,6 +18,7 @@ use Panychek\MoEx\Engine;
 use Panychek\MoEx\Market;
 use Panychek\MoEx\Board;
 use Panychek\MoEx\Security;
+use Panychek\MoEx\Issuer;
 use Panychek\MoEx\Client;
 use Panychek\MoEx\Exception\BadMethodCallException;
 use Panychek\MoEx\Exception\InvalidArgumentException;
@@ -213,6 +214,12 @@ class SecurityTest extends TestCase
         
         $this->mock_handler->append($response);
         
+        // issuer
+        $body = file_get_contents(__DIR__ . '/Response/security_search.json');
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        
+        $this->mock_handler->append($response);
+        
         $security_name = '#moex';
         $security = new Security($security_name);
         
@@ -241,6 +248,12 @@ class SecurityTest extends TestCase
         }
         
         $this->assertEquals(3, Client::getInstance()->getCounter());
+        
+        $issuer = $security->getIssuer();
+        $this->assertInstanceOf(Issuer::class, $issuer);
+        $this->assertEquals('Публичное акционерное общество "Московская Биржа ММВБ-РТС"', $issuer->getTitle());
+        $this->assertEquals('7702077840', $issuer->getInn());
+        $this->assertEquals('11538317', $issuer->getOkpo());
     }
 
     /**

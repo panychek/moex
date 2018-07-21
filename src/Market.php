@@ -11,6 +11,8 @@ namespace Panychek\MoEx;
 
 class Market extends AbstractEntry
 {
+    use ValidationTrait;
+    
     /**
      * @var array
      */
@@ -87,7 +89,7 @@ class Market extends AbstractEntry
      * @throws Exception\DataException for unknown markets
      * @return void
      */
-    private function loadInfo()
+    protected function loadInfo()
     {
         if(empty($this->boards)) { // haven't been loaded yet
             $market = Client::getInstance()->getMarket($this->getEngine()->getId(), $this->getId());

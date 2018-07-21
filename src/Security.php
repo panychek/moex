@@ -11,6 +11,8 @@ namespace Panychek\MoEx;
 
 class Security extends AbstractEntry
 {
+    use ValidationTrait;
+    
     /**
      * @var \Panychek\MoEx\Board
      */
@@ -20,6 +22,13 @@ class Security extends AbstractEntry
      * @var array
      */
     private $available_boards = array();
+    
+    /**
+     * The issuer of this security
+     *
+     * @var \Panychek\MoEx\Issuer|false|null
+     */
+    private $issuer = null;
     
     /**
      * @var array
@@ -195,10 +204,9 @@ class Security extends AbstractEntry
     }
     
     /**
-     * Get the code by a string
+     * Get the security code by a string
      *
      * @param  string $name
-     * @throws Exception\DataException for unknown securities
      * @return string
      */
     private function getCodeByString(string $name)
@@ -206,18 +214,59 @@ class Security extends AbstractEntry
         if ($name[0] == '#') { // it's a security code
             $security_code = substr($name, 1);
             
-        } else {
-            $security = Client::getInstance()->findSecurity($name, 1);
-            
-            if (empty($security['securities'])) {
-                $message = sprintf('No securities matching "%s"', $name);
-                throw new Exception\DataException($message, Exception\DataException::EMPTY_RESULT);
-            }
-            
-            $security_code = $security['securities'][0]['secid'];
+        } else { // best match
+            $securities = Exchange::getInstance()->findSecurities($name, 1);
+            $security = $securities[0];
+            $this->setIssuer($security);
+            $security_code = $security['secid'];
         }
         
         return $security_code;
+    }
+    
+    /**
+     * Set the issuer
+     *
+     * @param  array $data
+     * @return void
+     */
+    public function setIssuer(array $data)
+    {
+        $issuer_id = $data['emitent_id'];
+        if ($issuer_id) {
+            $issuer = Issuer::getInstance($data['emitent_id']);
+        
+            $issuer->setProperty('title', $data['emitent_title']);
+            $issuer->setProperty('inn', $data['emitent_inn']);
+            $issuer->setProperty('okpo', $data['emitent_okpo']);
+            
+        } else {
+            $issuer = false;
+        }
+        
+        $this->issuer = $issuer;
+    }
+    
+    /**
+     * Get the issuer
+     *
+     * @return \Panychek\MoEx\Issuer
+     */
+    public function getIssuer()
+    {
+        if (is_null($this->issuer)) {
+            $search_string = sprintf('"%s"', $this->getId());
+            $securities = Exchange::getInstance()->findSecurities($search_string);
+            
+            foreach ($securities as $security) {
+                if (strtolower($security['secid']) == strtolower($this->getId())) {
+                    $this->setIssuer($security);
+                    break;
+                }
+            }
+        }
+        
+        return $this->issuer;
     }
     
     /**

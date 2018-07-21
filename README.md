@@ -40,7 +40,7 @@ try {
 }
 ```
 
-You can also access the security by its code (prefix it with a hash symbol (#)). This will be slightly faster, since you avoid an extra API call to find it.
+You can also access the security by its code (prefix it with a hash symbol (**#**)). This will be slightly faster, since you avoid an extra API call to find it.
 
 ```php
 $security = new Security('#SBER');
@@ -124,7 +124,7 @@ $capitalization_usd = $rtsi->getCapitalization('USD');
 ### Profile
 
 ```php
-$security = new Security('Gazprom');
+$security = new Security('#GAZP');
 $security->setLanguage('en');
 
 $code = $security->getId(); // "GAZP"
@@ -136,6 +136,8 @@ $market_title = $security->getMarket()->getTitle(); // "Equities Market"
 $engine_title = $security->getEngine()->getTitle(); // "Securities Market"
 $board_title = $security->getBoard()->getTitle(); // "T+: Stocks, DRs"
 $capitalization = $security->getEngine()->getCapitalization(); // 33015281259414 RUB
+
+$issuer_title = $security->getIssuer()->getTitle(); // "Публичное акционерное общество "Газпром""
 
 $indices = $security->getIndices();
 foreach ($indices as $index) {

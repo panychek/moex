@@ -14,6 +14,8 @@ namespace Panychek\MoEx;
  */
 class Exchange extends AbstractEntry
 {
+    use ValidationTrait;
+    
     /**
      * @var \Panychek\MoEx\Exchange
      */
@@ -75,8 +77,8 @@ class Exchange extends AbstractEntry
         Market::destroyInstances();
         SecurityGroup::destroyInstances();
         Collection::destroyInstances();
+        Issuer::destroyInstances();
     }
-    
     
     /**
      * Wrapper for the Client::authenticate() method
@@ -280,5 +282,24 @@ class Exchange extends AbstractEntry
         } else {
             return $this->num_trades[$date_str];
         }
+    }
+    
+    /**
+     * Search for the securities
+     *
+     * @param  string $string
+     * @throws Exception\DataException for unknown securities
+     * @return array
+     */
+    public function findSecurities(string $string, int $limit = 100)
+    {
+        $security = Client::getInstance()->findSecurity($string, $limit);
+            
+        if (empty($security['securities'])) {
+            $message = sprintf('No securities matching "%s"', $name);
+            throw new Exception\DataException($message, Exception\DataException::EMPTY_RESULT);
+        }
+        
+        return $security['securities'];
     }
 }

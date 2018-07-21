@@ -1,0 +1,12 @@
+{
+"securities": {
+    "columns": ["id", "secid", "shortname", "regnumber", "name", "isin", "is_traded", "emitent_id", "emitent_title", "emitent_inn", "emitent_okpo", "gosreg", "type", "group", "primary_boardid", "marketprice_boardid"], 
+    "data": [
+        [2333, "IMOEX", "Индекс МосБиржи", null, "Индекс МосБиржи", "RU000A0JP7K5", 1, null, null, null, null, null, "stock_index", "stock_index", "SNDX", null],
+        [150506, "MICEXINDEXCF", "Индекс МосБиржи (архив)", null, "Индекс МосБиржи (архив)", null, 1, null, null, null, null, null, "stock_index", "stock_index", "SNDX", null],
+        [115426, "MCFTR", "MOEX Russia Total Return", null, "Индекс ММВБ полной доходности «брутто»", null, 1, null, null, null, null, null, "stock_index", "stock_index", "RTSI", null],
+        [115427, "MCFTRN", "MOEX Russia Net Total Return (Non-Resident)", null, "Индекс ММВБ полной доходности «нетто» (по налоговым ставкам иностранных организаций)", null, 1, null, null, null, null, null, "stock_index", "stock_index", "RTSI", null],
+        [115428, "MCFTRR", "MOEX Russia Net Total Return (Resident)", null, "Индекс ММВБ полной доходности «нетто» (по налоговым ставкам российских организаций)", null, 1, null, null, null, null, null, "stock_index", "stock_index", "RTSI", null],
+        [19075, "MOEX", "МосБиржа", "1-05-08443-H", "ПАО Московская Биржа", "RU000A0JR4A1", 1, 2624, "Публичное акционерное общество \"Московская Биржа ММВБ-РТС\"", "7702077840", "11538317", "1-05-08443-H", "common_share", "stock_shares", "TQBR", "TQBR"]
+    ]
+}}

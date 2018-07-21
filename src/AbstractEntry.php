@@ -29,6 +29,31 @@ abstract class AbstractEntry
     private $current_datetime_str = 'now';
     
     /**
+     * Call a method
+     * 
+     * @param  string $name      Method name to call
+     * @param  array  $arguments Method arguments
+     * @throws Exception\BadMethodCallException
+     * @return mixed
+     */
+    public function __call(string $name, array $arguments)
+    {
+        if ($this->isGetterMethod($name)) {
+            if (method_exists($this, 'loadInfo')) {
+                $this->loadInfo();
+            }
+            
+            $property = $this->getPropertyFromMethod($name);
+            if (isset($this->getProperties()[$property])) {
+                return $this->getProperties()[$property];                
+            }
+        }
+        
+        $message = sprintf('Method "%s" does not exist', $name);
+        throw new Exception\BadMethodCallException($message);
+    }
+    
+    /**
      * Set the id
      *
      * @param  string $id
@@ -75,10 +100,10 @@ abstract class AbstractEntry
      * Set the property
      *
      * @param  string $name
-     * @param  string $value
+     * @param  string|null $value
      * @return void
      */
-    public function setProperty(string $name, string $value)
+    public function setProperty(string $name, $value)
     {
         $this->properties[$name] = $value;
     }
@@ -159,53 +184,6 @@ abstract class AbstractEntry
     public function getPropertyFromMethod(string $name)
     {
         return strtolower(substr($name, 3));
-    }
-    
-    
-    /**
-     * Make sure a currency code is valid
-     *
-     * @param  string $currency
-     * @throws \Panychek\MoEx\Exception\InvalidArgumentException
-     * @return void
-     */
-    protected function validateCurrency(string $currency)
-    {
-        $currencies = array('rub', 'usd');
-        
-        if (!in_array($currency, $currencies)) {
-            $message = 'Unsupported currency';
-            throw new Exception\InvalidArgumentException($message);
-        }
-    }
-    
-    /**
-     * Make sure a date is valid
-     *
-     * @param  \DateTime|string|false $date
-     * @throws \Panychek\MoEx\Exception\InvalidArgumentException
-     * @return void
-     */
-    protected function validateDate($date)
-    {
-        if (($date instanceof \DateTime) || $date === false) {
-            return;
-        }
-        
-        if (is_string($date)) {
-            try {
-                $timezone = new \DateTimeZone(Client::TIMEZONE);
-                $date = new \DateTime($date, $timezone);
-                
-            } catch (\Exception $e) {
-                $message = sprintf('Invalid date passed as string: %s', $date);
-                throw new Exception\InvalidArgumentException($message);
-            }
-            
-        } else {
-            $message = 'Date must be an instance of \DateTime or a string';
-            throw new Exception\InvalidArgumentException($message);
-        }
     }
     
     /**
