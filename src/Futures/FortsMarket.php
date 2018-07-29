@@ -74,14 +74,14 @@ class FortsMarket extends Market
             $range = (!empty($arguments[0])) ? $arguments[0] : 'day';
             $range = strtolower($range);
             
-            $measure = (!empty($arguments[1])) ? $arguments[1] : 'currency';
+            $measurement = (!empty($arguments[1])) ? $arguments[1] : 'points';
             
             if ($range != 'day') {
                 $message = 'Unsupported range. Available ranges: "day"';
                 throw new InvalidArgumentException($message);
             }
             
-            $field = ($measure == '%') ? 'lastchangeprcnt' : 'lastchange';
+            $field = ($measurement == '%') ? 'lastchangeprcnt' : 'lastchange';
             
             return $market_data[$field];
         };

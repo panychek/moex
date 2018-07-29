@@ -50,27 +50,6 @@ class SecurityTest extends TestCase
     /**
      * @group Unit
      */
-    public function testLanguages()
-    {
-        // security
-        $body = file_get_contents(__DIR__ . '/Response/shares_market_security_en.json');
-        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
-        
-        $this->mock_handler->append($response);
-        
-        $security_name = '#moex';
-        $security = new Security($security_name);
-        $this->assertEquals('ru', $security->getLanguage());
-        
-        $security->setLanguage('en');
-        
-        $this->assertEquals('en', $security->getLanguage());
-        $this->assertEquals('MoscowExchange', $security->getName());
-    }
-    
-    /**
-     * @group Unit
-     */
     public function testCurrencyPairPropertyGetters()
     {
         // security
@@ -289,6 +268,8 @@ class SecurityTest extends TestCase
         $this->assertEquals(58.16, $security->getDailyHigh());
         $this->assertEquals(57.5025, $security->getDailyLow());
         
+        $this->assertEquals(0.42, $security->getDailyChange());
+        $this->assertEquals(0.73, $security->getDailyPercentageChange());
         $this->assertEquals(0.42, $security->getChange());
         $this->assertEquals(0.42, $security->getChange('day'));
         $this->assertEquals(0.73, $security->getChange('day', '%'));
@@ -331,6 +312,8 @@ class SecurityTest extends TestCase
         $this->assertEquals(58883, $security->getDailyHigh());
         $this->assertEquals(58346, $security->getDailyLow());
         
+        $this->assertEquals(1, $security->getDailyChange());
+        $this->assertEquals(0, $security->getDailyPercentageChange());
         $this->assertEquals(1, $security->getChange());
         $this->assertEquals(1, $security->getChange('day'));
         $this->assertEquals(0, $security->getChange('day', '%'));
@@ -374,6 +357,8 @@ class SecurityTest extends TestCase
         $this->assertEquals(98.6, $security->getDailyHigh());
         $this->assertEquals(97.12, $security->getDailyLow());
         
+        $this->assertEquals(1.53, $security->getDailyChange());
+        $this->assertEquals(1.58, $security->getDailyPercentageChange());
         $this->assertEquals(1.53, $security->getChange());
         $this->assertEquals(1.53, $security->getChange('day'));
         $this->assertEquals(1.58, $security->getChange('day', '%'));
@@ -416,9 +401,15 @@ class SecurityTest extends TestCase
         $this->assertEquals(1127.45, $security->getDailyHigh());
         $this->assertEquals(1112.43, $security->getDailyLow());
         
+        $this->assertEquals(731, $security->getDailyChange());
+        $this->assertEquals(0.65, $security->getDailyPercentageChange());
         $this->assertEquals(731, $security->getChange());
         $this->assertEquals(731, $security->getChange('day'));
         $this->assertEquals(0.65, $security->getChange('day', '%'));
+        $this->assertEquals(2511, $security->getChange('MTD'));
+        $this->assertEquals(2.28, $security->getChange('MTD', '%'));
+        $this->assertEquals(-2664, $security->getChange('YTD'));
+        $this->assertEquals(-2.31, $security->getChange('YTD', '%'));
         
         $this->assertEquals(9511542707105, $security->getCapitalization());
         $this->assertEquals(165613990582, $security->getCapitalization('USD'));
@@ -464,6 +455,8 @@ class SecurityTest extends TestCase
         $this->assertEquals(107.88, $security->getDailyHigh());
         $this->assertEquals(105.32, $security->getDailyLow());
         
+        $this->assertEquals(1.23, $security->getDailyChange());
+        $this->assertEquals(1.17, $security->getDailyPercentageChange());
         $this->assertEquals(1.23, $security->getChange());
         $this->assertEquals(1.23, $security->getChange('day'));
         $this->assertEquals(1.17, $security->getChange('day', '%'));

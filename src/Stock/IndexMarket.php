@@ -72,7 +72,7 @@ class IndexMarket extends Market
          */
         return function(array $market_data, array $arguments) {
             $range = (!empty($arguments[0])) ? $arguments[0] : 'day';
-            $measure = (!empty($arguments[1])) ? $arguments[1] : 'bp';
+            $measurement = (!empty($arguments[1])) ? $arguments[1] : 'points';
             
             $range = strtolower($range);
             $range_mappings = array(
@@ -86,11 +86,9 @@ class IndexMarket extends Market
                 throw new InvalidArgumentException($message);
             }
             
-            if ($measure == '%') {
-                $measure = 'prc';
-            }
+            $suffix = ($measurement == '%') ? 'prc' : 'bp';
             
-            $field = sprintf('%schange%s', $range_mappings[$range], $measure);
+            $field = sprintf('%schange%s', $range_mappings[$range], $suffix);
             return $market_data[$field];
         };
     }

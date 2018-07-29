@@ -641,4 +641,15 @@ class Client
         $uri = 'statistics/engines/stock/capitalization';
         return $this->getData($uri);
     }
+
+    /**
+     * Get the official exchange rates fixed by the Bank of Russia
+     *
+     * @return array
+     */
+    public function getRubleOfficialRates()
+    {
+        $uri = 'statistics/engines/currency/markets/selt/rates';
+        return $this->getData($uri);
+    }
 }

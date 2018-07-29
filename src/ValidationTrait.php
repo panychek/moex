@@ -18,11 +18,9 @@ trait ValidationTrait
      * @throws \Panychek\MoEx\Exception\InvalidArgumentException
      * @return void
      */
-    protected function validateCurrency(string $currency)
+    protected function validateCurrency(string $currency, array $allowed_currencies = array('rub', 'usd'))
     {
-        $currencies = array('rub', 'usd');
-        
-        if (!in_array($currency, $currencies)) {
+        if (!in_array($currency, $allowed_currencies)) {
             $message = 'Unsupported currency';
             throw new Exception\InvalidArgumentException($message);
         }

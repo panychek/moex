@@ -92,6 +92,27 @@ class Exchange extends AbstractEntry
     }
     
     /**
+     * Set the language
+     *
+     * @param  string $lang
+     * @return void
+     */
+    public function setLanguage($lang)
+    {
+        Client::getInstance()->setLanguage($lang);
+    }
+    
+    /**
+     * Get the language
+     *
+     * @return string
+     */
+    public function getLanguage()
+    {
+        return Client::getInstance()->getLanguage();
+    }
+    
+    /**
      * Set the engines
      *
      * @throws Exception\DataException when the list is empty
@@ -288,18 +309,51 @@ class Exchange extends AbstractEntry
      * Search for the securities
      *
      * @param  string $string
+     * @param  int $limit
      * @throws Exception\DataException for unknown securities
      * @return array
      */
-    public function findSecurities(string $string, int $limit = 100)
+    public static function findSecurities(string $string, int $limit = 100)
     {
-        $security = Client::getInstance()->findSecurity($string, $limit);
+        $search_result = Client::getInstance()->findSecurity($string, $limit);
             
-        if (empty($security['securities'])) {
-            $message = sprintf('No securities matching "%s"', $name);
+        if (empty($search_result['securities'])) {
+            $message = sprintf('No securities matching "%s"', $string);
             throw new Exception\DataException($message, Exception\DataException::EMPTY_RESULT);
         }
         
-        return $security['securities'];
+        $securities = array();
+        foreach ($search_result['securities'] as $v) {
+            $security = new Security('#' . $v['secid']);
+            $security->setIssuer($v);
+            
+            $securities[] = $security;
+        }
+        
+        return $securities;
+    }
+
+    /**
+     * Get the ruble exchange rate
+     *
+     * @param  string $base_currency
+     * @return float
+     */
+    public static function getRubleRate($base_currency = 'USD') {
+        $ids = array(
+            'usd' => 'USD000000TOD',
+            'eur' => 'EUR_RUB__TOD',
+            'gbp' => 'GBPRUB_TOD',
+            'cny' => 'CNY000000TOD'
+        );
+        
+        $id = $ids[$base_currency];
+        
+        $ruble_futures = new Security('#' . $id);
+        
+        $board = Board::getInstance('CETS', 'currency', 'selt');
+        $ruble_futures->setBoard($board);
+        
+        return $ruble_futures->getLastPrice();
     }
 }

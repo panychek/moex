@@ -85,14 +85,14 @@ class BondsMarket extends Market
             $range = (!empty($arguments[0])) ? $arguments[0] : 'day';
             $range = strtolower($range);
             
-            $measure = (!empty($arguments[1])) ? $arguments[1] : 'currency';
+            $measurement = (!empty($arguments[1])) ? $arguments[1] : 'points';
             
             if ($range != 'day') {
                 $message = 'Unsupported range. Available ranges: "day"';
                 throw new InvalidArgumentException($message);
             }
             
-            $field = ($measure == '%') ? 'lasttoprevprice' : 'change';
+            $field = ($measurement == '%') ? 'lasttoprevprice' : 'change';
             
             return $market_data[$field];
         };

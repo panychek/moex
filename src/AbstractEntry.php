@@ -45,7 +45,7 @@ abstract class AbstractEntry
             
             $property = $this->getPropertyFromMethod($name);
             if (isset($this->getProperties()[$property])) {
-                return $this->getProperties()[$property];                
+                return $this->getProperties()[$property];
             }
         }
         
@@ -140,29 +140,7 @@ abstract class AbstractEntry
         $date = new \DateTime($this->current_datetime_str, $timezone);
         
         return $date;
-    }
-    
-    /**
-     * Set the language
-     *
-     * @param  string $lang
-     * @return void
-     */
-    public function setLanguage($lang)
-    {
-        Client::getInstance()->setLanguage($lang);
-    }
-    
-    /**
-     * Get the language
-     *
-     * @return string
-     */
-    public function getLanguage()
-    {
-        return Client::getInstance()->getLanguage();
-    }
-    
+    }    
     
     /**
      * Check if the method is a getter method

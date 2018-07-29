@@ -11,7 +11,6 @@ namespace Panychek\MoEx;
 
 class Market extends AbstractEntry
 {
-    use ValidationTrait;
     
     /**
      * @var array
@@ -179,6 +178,11 @@ class Market extends AbstractEntry
      * @return false|callable
      */
     public function getMarketDataGetter(string $property) {
+        $method = sprintf('get%sGetter', $property);
+        if (method_exists($this, $method)) {
+            return $this->$method();
+        }
+        
         if (!empty($this->market_data_mappings[$property])) { // it's a simple getter
             $field = $this->market_data_mappings[$property];
             return function($market_data) use ($field) {
@@ -186,11 +190,40 @@ class Market extends AbstractEntry
             };
         }
         
-        $method = sprintf('get%sGetter', $property);
-        if (method_exists($this, $method)) {
-            return $this->$method();
-        }
-        
         return false;
+    }
+    
+    /**
+     * @return callable
+     */
+    public function getDailyChangeGetter()
+    {
+        /**
+         * Get the daily change
+         *
+         * @param  array $market_data
+         * @param  array $arguments
+         * @return mixed
+         */
+        return function(array $market_data, array $arguments) {
+            return $this->getChange('day', 'points');
+        };
+    }
+    
+    /**
+     * @return callable
+     */
+    public function getDailyPercentageChangeGetter()
+    {
+        /**
+         * Get the daily percentage change
+         *
+         * @param  array $market_data
+         * @param  array $arguments
+         * @return mixed
+         */
+        return function(array $market_data, array $arguments) {
+            return $this->getChange('day', '%');
+        };
     }
 }

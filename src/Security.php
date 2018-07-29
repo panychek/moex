@@ -69,10 +69,13 @@ class Security extends AbstractEntry
     public function __call(string $name, array $arguments)
     {
         if ($this->isGetterMethod($name)) {
-            
-            $this->loadInfo();
-            
             $property = $this->getPropertyFromMethod($name);
+            $market_data_getter = $this->getMarket()->getMarketDataGetter($property);
+            
+            if (!$this->getBoard() || !$market_data_getter) {
+                $this->loadInfo();
+            }
+            
             if (isset($this->getProperties()[$property])) {
                 return $this->getProperties()[$property];                
             }
@@ -82,14 +85,14 @@ class Security extends AbstractEntry
                 return $this->getProperties()[$mapped_property];
             }
             
-            $market_data_getter = $this->getMarket()->getMarketDataGetter($property);
             if ($market_data_getter) { // market data
 
                 if (empty($this->getMarketData())) { // haven't been loaded yet
                     $this->setMarketData();
                 }
                 
-                return $market_data_getter($this->getMarketData(), $arguments);
+                $closure = $market_data_getter->bindTo($this, $this);
+                return $closure($this->getMarketData(), $arguments);
             }
         }
         
@@ -130,7 +133,7 @@ class Security extends AbstractEntry
      * @param  Panychek\MoEx\Board $board
      * @return void
      */
-    private function setBoard(Board $board)
+    public function setBoard(Board $board)
     {
         $this->board = $board;
     }
@@ -142,7 +145,10 @@ class Security extends AbstractEntry
      */
     public function getBoard()
     {
-        $this->loadInfo();
+        if (empty($this->board)) {
+            $this->loadInfo();
+        }
+        
         return $this->board;
     }
     
@@ -215,8 +221,14 @@ class Security extends AbstractEntry
             $security_code = substr($name, 1);
             
         } else { // best match
-            $securities = Exchange::getInstance()->findSecurities($name, 1);
-            $security = $securities[0];
+            $search_result = Client::getInstance()->findSecurity($name, 1);
+            
+            if (empty($search_result['securities'])) {
+                $message = sprintf('No securities matching "%s"', $name);
+                throw new Exception\DataException($message, Exception\DataException::EMPTY_RESULT);
+            }
+            
+            $security = $search_result['securities'][0];
             $this->setIssuer($security);
             $security_code = $security['secid'];
         }
@@ -256,9 +268,14 @@ class Security extends AbstractEntry
     {
         if (is_null($this->issuer)) {
             $search_string = sprintf('"%s"', $this->getId());
-            $securities = Exchange::getInstance()->findSecurities($search_string);
+            $search_result = Client::getInstance()->findSecurity($search_string);
             
-            foreach ($securities as $security) {
+            if (empty($search_result['securities'])) {
+                $message = sprintf('Unknown security ID: "%s"', $this->getId());
+                throw new Exception\DataException($message, Exception\DataException::EMPTY_RESULT);
+            }
+            
+            foreach ($search_result['securities'] as $security) {
                 if (strtolower($security['secid']) == strtolower($this->getId())) {
                     $this->setIssuer($security);
                     break;
@@ -282,7 +299,7 @@ class Security extends AbstractEntry
         
         $market_data = Client::getInstance()->getMarketData($engine->getId(), $market->getId(), $this->getId());
         
-        if (empty($market_data['marketdata'])) {
+        if (empty($market_data['marketdata']) || empty($market_data['securities'])) {
             $message = 'No available data';
             throw new Exception\DataException($message, Exception\DataException::EMPTY_RESULT);
         }
@@ -295,7 +312,14 @@ class Security extends AbstractEntry
         
         array_multisort($sort, SORT_DESC, $market_data['marketdata']);
         
+        // highest volume
         $this->market_data = array_change_key_case($market_data['marketdata'][0]);
+        
+        foreach ($market_data['securities'] as $k => $v) {
+            if ($v['BOARDID'] == $this->market_data['boardid']) {
+                $this->market_data['static'] = array_change_key_case($v);
+            }
+        }
     }
     
     /**

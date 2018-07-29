@@ -17,6 +17,7 @@ use Panychek\MoEx\Exchange;
 use Panychek\MoEx\Engine;
 use Panychek\MoEx\Market;
 use Panychek\MoEx\Client;
+use Panychek\MoEx\Security;
 use Panychek\MoEx\SecurityGroup;
 use Panychek\MoEx\Exception\InvalidArgumentException;
 
@@ -94,6 +95,74 @@ class ExchangeTest extends TestCase
         
         $this->assertEquals(1878607, $exchange->getNumberOfTrades());
         $this->assertEquals(1756336, $exchange->getNumberOfTrades('2017-07-06'));
+        
+        $this->assertEquals(3, Client::getInstance()->getCounter());
+    }
+    
+    /**
+     * @group Unit
+     */
+    public function testLanguages()
+    {
+        // security
+        $body = file_get_contents(__DIR__ . '/Response/shares_market_security_en.json');
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        
+        $this->mock_handler->append($response);
+        
+        $this->assertEquals('ru', Exchange::getLanguage());
+        
+        Exchange::setLanguage('en');        
+        $this->assertEquals('en', Exchange::getLanguage());
+        
+        $security_name = '#moex';
+        $security = new Security($security_name);
+        $this->assertEquals('MoscowExchange', $security->getName());
+    }
+    
+    /**
+     * @group Unit
+     */
+    public function testSearch()
+    {
+        $body = file_get_contents(__DIR__ . '/Response/security_search.json');
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        
+        $this->mock_handler->append($response);
+        
+        $search_string = 'moex';
+        $securities = Exchange::findSecurities($search_string);
+        
+        foreach ($securities as $security) {
+            $this->assertInstanceOf(Security::class, $security);
+        }
+        
+        $this->assertEquals(6, count($securities));
+    }
+    
+    /**
+     * @group Unit
+     */
+    public function testRubleRates()
+    {
+        $body = file_get_contents(__DIR__ . '/Response/usd_rub_tod.json');
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        
+        $this->mock_handler->append($response);
+        
+        $body = file_get_contents(__DIR__ . '/Response/usd_rub_tod.json');
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        
+        $this->mock_handler->append($response);
+        
+        $body = file_get_contents(__DIR__ . '/Response/eur_rub_tod.json');
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        
+        $this->mock_handler->append($response);
+        
+        $this->assertEquals(62.71, Exchange::getRubleRate());
+        $this->assertEquals(62.71, Exchange::getRubleRate('usd'));
+        $this->assertEquals(73.24, Exchange::getRubleRate('eur'));
         
         $this->assertEquals(3, Client::getInstance()->getCounter());
     }

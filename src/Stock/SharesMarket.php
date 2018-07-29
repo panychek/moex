@@ -26,10 +26,30 @@ class SharesMarket extends Market
     protected $market_data_mappings = array(
         'lastprice' => 'last',
         'openingprice' => 'open',
-        'closingprice' => 'lcloseprice',
         'dailylow' => 'low',
         'dailyhigh' => 'high'
     );
+    
+    /**
+     * @return callable
+     */
+    public function getClosingPriceGetter()
+    {
+        /**
+         * Get the closing price
+         *
+         * @param  array $market_data
+         * @return mixed
+         */
+        return function(array $market_data) {
+            if (!empty($market_data['lcloseprice'])) {
+                return $market_data['lcloseprice'];
+                
+            } else {
+                return $market_data['static']['prevprice'];
+            }
+        };
+    }
     
     /**
      * @return callable
@@ -74,14 +94,14 @@ class SharesMarket extends Market
             $range = (!empty($arguments[0])) ? $arguments[0] : 'day';
             $range = strtolower($range);
             
-            $measure = (!empty($arguments[1])) ? $arguments[1] : 'currency';
+            $measurement = (!empty($arguments[1])) ? $arguments[1] : 'points';
             
             if ($range != 'day') {
                 $message = 'Unsupported range. Available ranges: "day"';
                 throw new InvalidArgumentException($message);
             }
             
-            $field = ($measure == '%') ? 'lasttoprevprice' : 'change';
+            $field = ($measurement == '%') ? 'lasttoprevprice' : 'change';
             
             return $market_data[$field];
         };

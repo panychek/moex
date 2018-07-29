@@ -1,0 +1,21 @@
+{
+"securities": {
+    "columns": ["SECID", "BOARDID", "SHORTNAME", "LOTSIZE", "SETTLEDATE", "DECIMALS", "FACEVALUE", "MARKETCODE", "MINSTEP", "PREVDATE", "SECNAME", "REMARKS", "STATUS", "FACEUNIT", "PREVPRICE", "PREVWAPRICE", "CURRENCYID", "LATNAME"], 
+    "data": [
+        ["EUR_RUB__TOD", "CETS", "EURRUB_TOD", 1000, "2018-07-27", 4, 1, "CURR", 0.0025, "2018-07-26", "EURRUB_TOD - EUR\/РУБ", null, "A", "EUR", 73.835, 73.7726, "RUB", "EURRUB_TOD - EUR\/RUB"],
+        ["EUR_RUB__TOD", "CNGD", "EURRUB_TOD", 1, "2018-07-27", 4, 1, "CURR", 0.0001, "2018-07-26", "EURRUB_TOD - EUR\/РУБ", null, "A", "EUR", 73.4575, 73.7133, "RUB", "EURRUB_TOD - EUR\/RUB"]
+    ]
+},
+"marketdata": {
+    "columns": ["HIGHBID", "BIDDEPTH", "LOWOFFER", "OFFERDEPTH", "SPREAD", "HIGH", "LOW", "OPEN", "LAST", "LASTCNGTOLASTWAPRICE", "VALTODAY", "VOLTODAY", "VALTODAY_USD", "WAPRICE", "WAPTOPREVWAPRICE", "CLOSEPRICE", "NUMTRADES", "TRADINGSTATUS", "UPDATETIME", "BOARDID", "SECID", "WAPTOPREVWAPRICEPRCNT", "BID", "BIDDEPTHT", "NUMBIDS", "OFFER", "OFFERDEPTHT", "NUMOFFERS", "CHANGE", "LASTCHANGEPRCNT", "VALUE", "VALUE_USD", "SEQNUM", "QTY", "TIME", "PRICEMINUSPREVWAPRICE", "LASTCHANGE", "LASTTOPREVPRICE", "VALTODAY_RUR", "SYSTIME", "MARKETPRICE", "MARKETPRICETODAY", "MARKETPRICE2", "ADMITTEDQUOTE"], 
+    "data": [
+        [null, null, null, null, 0, 73.45, 73.1525, 73.3625, 73.24, 0, 18292025880, 249702000, 290475951, 73.2554, -0.5172, null, 3355, "N", "23:50:00", "CETS", "EUR_RUB__TOD", -0.7, null, null, null, null, null, null, -0.595, 0, 366200, 5815.23, 252285, 5, "14:59:57", -0.5326, 0, -0.81, 18292025880, "2018-07-28 00:05:04", null, null, null, null],
+        [null, null, null, null, 0, 73.285, 73.19, 73.285, 73.25, 0, 4792681, 65443, 76107, 73.2344, -0.4789, null, 12, "N", "23:50:00", "CNGD", "EUR_RUB__TOD", -0.65, null, null, null, null, null, null, -0.2075, 0, 73.25, 1.16, 252285, 1, "14:35:39", -0.4633, 0, -0.28, 4792681, "2018-07-28 00:05:04", null, null, null, null]
+    ]
+},
+"dataversion": {
+    "columns": ["version", "seqnum"], 
+    "data": [
+        [3474, 253175]
+    ]
+}}

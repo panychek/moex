@@ -21,9 +21,7 @@ Include the autoloader:
 require_once 'vendor/autoload.php';
 ```
 
-## Usage
-
-### Basic usage
+## Getting started
 
 The basic usage pattern is to instantiate a `Security` object for the security you want to interact with. You can pass any string you want (in Russian or English) - the library will perform a search and pick the best match.
 
@@ -49,79 +47,111 @@ $security = new Security('#SBER');
 The default language is **Russian**. You can switch to English like this:
 
 ```php
-$security->setLanguage('en');
+Exchange::setLanguage('en');
 ```
 
-### Authentication
+## Authentication
 If you're subscribed to any paid services and want to access their private data, you should authenticate yourself first using your Passport account credentials:
 ```php
 Exchange::authenticate($username, $password);
 ```
 
-### Retrieving market data
+## Search ###
+You can easily find the needed financial instrument. This call will return a collection of matched securities:
+```php
+$securities = Exchange::findSecurities('Alrosa');
+```
 
-#### Shares, currency pairs and futures
+You can also limit the results:
+```php
+$securities = Exchange::findSecurities('Gazprom', 5);
+```
+
+## Retrieving market data
+
+### Shares, currency pairs and futures
 
 Available methods:
 
-* `getLastPrice`
-* `getOpeningPrice`
-* `getClosingPrice`
-* `getDailyHigh`
-* `getDailyLow`
-* `getLastUpdate`
-* `getVolume($currency = 'RUB')`
-###### Example usage
+| Method | Input parameters | Returns |
+|---|---|---|
+| getLastPrice | | float |
+| getOpeningPrice | | float |
+| getClosingPrice | | float |
+| getDailyHigh | | float |
+| getDailyLow | | float |
+| getLastUpdate | | object(\DateTime) |
+| getDailyChange | | float |
+| getDailyPercentageChange | | float |
+| getVolume | string **$currency** <br>*Possible values:* **RUB** or **USD**<br>*Defaults to:* **RUB** | int |
+
+Fetching the ruble's exchange rate from the FX market:
+> If omitted, the base currency defaults to US dollar
 ```php
-$volume_rub = $security->getVolume('RUB');
-$volume_usd = $security->getVolume('USD');
-```
-* `getChange($range = 'day', $measure = 'currency')`
-###### Example usage
-```php
-$daily_change = $security->getChange('day');
-$daily_percentage_change = $security->getChange('day', '%');
+$usd_rub = Exchange::getRubleRate();
+$eur_rub = Exchange::getRubleRate('EUR');
 ```
 
-#### Bonds
+### Bonds
 
-Bonds also support the following methods:
+In addition, bonds also support the following methods:
 
-* `getYield`
-* `getDuration`
-* `getFaceValue`
-* `getCouponValue`
-* `getCouponRate`
-* `getCouponDate`
-* `getMaturityDate`
+| Method | Input parameters | Returns |
+|---|---|---|
+| getYield | | float |
+| getDuration | | int |
+| getFaceValue | | string |
+| getCouponValue | | string |
+| getCouponRate | | string |
+| getCouponDate | | string |
+| getMaturityDate | | string |
 
-#### Indices
+### Indices
 
 Available methods:
 
-* `getValue`
-* `getOpeningValue`
-* `getPreviousClose`
-* `getDailyHigh`
-* `getDailyLow`
-* `getLastUpdate`
-* `getVolume($currency = 'RUB')`
-* `getChange($range = 'day', $measure = 'bp')`
+| Method | Input parameters | Returns |
+|---|---|---|
+| getValue | | float |
+| getOpeningValue | | float |
+| getPreviousClose | | float |
+| getDailyHigh | | float |
+| getDailyLow | | float |
+| getLastUpdate | | object(\DateTime) |
+| getChange | string **$range**<br>*Possible values:* **day**, **MTD** or **YTD**<br>*Defaults to:* **day**<br><br>string **$measurement**<br>*Possible values:* **points** or **%**<br>*Defaults to:* **points** | float or int |
+| getVolume | string **$currency** <br>*Possible values:* **RUB** or **USD**<br>*Defaults to:* **RUB** | int |
+| getCapitalization | string **$currency** <br>*Possible values:* **RUB** or **USD**<br>*Defaults to:* **RUB** | int |
+
 ###### Example usage
 ```php
 $rtsi = new Security('RTS Index');
 
 $year_to_date_return = $rtsi->getChange('YTD', '%');
 $month_to_date_return = $rtsi->getChange('MTD', '%');
-```
-* `getCapitalization($currency = 'RUB')`
-###### Example usage
-```php
+
+$volume_rub = $rtsi->getVolume('RUB');
+$volume_usd = $rtsi->getVolume('USD');
+
 $capitalization_rub = $rtsi->getCapitalization('RUB');
 $capitalization_usd = $rtsi->getCapitalization('USD');
 ```
 
-### Profile
+## Historical quotes
+
+For a specific date range:
+
+```php
+$security = new Security('MICEX Index');
+$data = $security->getHistoricalQuotes('2014-01-01', '2014-12-31');
+```
+
+Starting from a particular day:
+
+```php
+$data = $security->getHistoricalQuotes('2017-01-01');
+```
+
+## Profile
 
 ```php
 $security = new Security('#GAZP');
@@ -146,24 +176,9 @@ foreach ($indices as $index) {
 }
 ```
 
-### Historical quotes
+## Turnovers
 
-For a specific date range:
-
-```php
-$security = new Security('MICEX Index');
-$data = $security->getHistoricalQuotes('2014-01-01', '2014-12-31');
-```
-
-Starting from a particular day:
-
-```php
-$data = $security->getHistoricalQuotes('2017-01-01');
-```
-
-### Turnovers
-
-#### Totals for the exchange
+### Totals for the exchange
 
 Last available trade day:
 
@@ -182,7 +197,7 @@ $christmas_turnovers = $exchange->getTurnovers('usd', '2015-12-25');
 $christmas_num_trades = $exchange->getNumberOfTrades('2015-12-25');
 ```
 
-#### Totals for a specific market
+### Totals for a specific market
 
 Last available trade day:
 
@@ -202,7 +217,7 @@ $fx_christmas_turnovers = $fx_market->getTurnovers('usd', '2015-12-25');
 $fx_christmas_num_trades = $fx_market->getNumberOfTrades('2015-12-25');
 ```
 
-### Groups
+## Groups
 
 Get the most reliable stocks (that are on the First Level quotation list):
 
@@ -212,7 +227,7 @@ $first_level = $shares_group->getCollection('one');
 $securities = $first_level->getSecurities();
 ```
 
-### Debugging
+## Debugging
 To see what's going on at the network level, define a logging callback function and pass it to the client. Once done, it will be invoked on each API call with its statistics.
 ```php
 $logger = function(\GuzzleHttp\TransferStats $stats) {
@@ -228,7 +243,7 @@ $logger = function(\GuzzleHttp\TransferStats $stats) {
 Client::getInstance()->setRequestLogger($logger);
 ```
 
-### Handling errors
+## Handling errors
 A `Panychek\MoEx\Exception\DataException` exception is thrown in the event of any data related error.
 The following codes indicate the reason for the failure:
 
