@@ -97,7 +97,7 @@ class Exchange extends AbstractEntry
      * @param  string $lang
      * @return void
      */
-    public function setLanguage($lang)
+    public static function setLanguage($lang)
     {
         Client::getInstance()->setLanguage($lang);
     }
@@ -107,7 +107,7 @@ class Exchange extends AbstractEntry
      *
      * @return string
      */
-    public function getLanguage()
+    public static function getLanguage()
     {
         return Client::getInstance()->getLanguage();
     }
@@ -347,6 +347,7 @@ class Exchange extends AbstractEntry
             'cny' => 'CNY000000TOD'
         );
         
+        $base_currency = strtolower($base_currency);
         $id = $ids[$base_currency];
         
         $ruble_futures = new Security('#' . $id);
