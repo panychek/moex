@@ -26,8 +26,12 @@ class ClientIntegrationTest extends TestCase
     {
         $client = Client::getInstance();
         $data = $client->getEngineList();
-        
+
         $this->assertInternalType('array', $data);
+
+        $this->assertArrayHasKey('engines', $data);
+
+        $this->assertCount(7, $data['engines']);
     }
     
     /**

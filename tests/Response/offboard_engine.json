@@ -1,0 +1,19 @@
+{
+"engine": {
+	"columns": ["NAME", "title", "short_title"], 
+	"data": [
+		["offboard", "ОТС-система", "OTC"]
+	]
+},
+"timetable": {
+	"columns": ["week_day", "is_work_day", "start_time", "stop_time"], 
+	"data": [
+
+	]
+},
+"dailytable": {
+	"columns": ["date", "is_work_day", "start_time", "stop_time"], 
+	"data": [
+
+	]
+}}

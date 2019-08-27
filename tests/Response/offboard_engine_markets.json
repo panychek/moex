@@ -1,0 +1,7 @@
+{
+"markets": {
+	"columns": ["id", "NAME", "title"], 
+	"data": [
+		[39, "bonds", "Облигации"]
+	]
+}}
