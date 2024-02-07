@@ -158,9 +158,10 @@ abstract class Engine extends AbstractEntry
         if ($date === false) {
             $non_empty_turnovers = array_filter($this->turnovers);
             $last_day_turnovers = end($non_empty_turnovers);
-            
-            return $last_day_turnovers[$currency];
-            
+            if ($last_day_turnovers) {
+                return $last_day_turnovers[$currency];
+            }
+            return 0.0;
         } else {
             return $this->turnovers[$date_str][$currency];
         }

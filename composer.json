@@ -2,7 +2,7 @@
     "name": "panychek/moex",
     "type": "library",
     "description": "Moscow Exchange ISS Client",
-    "keywords": ["moex", "moscow", "exchange", "micex"],
+    "keywords": ["moex", "moscow", "exchange", "micex", "moex iss"],
     "license": "MIT",
     "authors": [
         {
@@ -11,15 +11,16 @@
         }
     ],
     "require": {
-        "php": ">=7.0",
-        "guzzlehttp/guzzle": "^6.2"
+        "php": ">=8.2",
+        "guzzlehttp/guzzle": "^7.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.2"
+        "phpunit/phpunit": "^9.6"
     },
     "autoload": {
         "psr-4": {
-            "Panychek\\MoEx\\": "src/"
+            "Panychek\\MoEx\\": "src/",
+            "Panychek\\MoEx\\Tests":"tests/"
         }
     }
 }

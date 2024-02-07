@@ -27,14 +27,15 @@ class CollectionTest extends TestCase
      */
     private $mock_handler = null;
     
-    protected function setUp() {
+    protected function setUp(): void
+    {
         $this->mock_handler = new MockHandler();
         
         $handler = HandlerStack::create($this->mock_handler);
         Client::setExtraOption('handler', $handler);
     }
     
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->mock_handler = null;
         
@@ -94,7 +95,7 @@ class CollectionTest extends TestCase
         $this->assertEquals(1, Client::getInstance()->getCounter());
         
         $securities = $collection->getSecurities();
-        $this->assertInternalType('array', $securities);
+        $this->assertIsArray($securities);
         foreach ($securities as $security) {
             $this->assertInstanceOf(Security::class, $security);
         }
