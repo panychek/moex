@@ -20,7 +20,7 @@
     "autoload": {
         "psr-4": {
             "Panychek\\MoEx\\": "src/",
-            "Panychek\\MoEx\\Tests":"tests/"
+            "Panychek\\MoEx\\Tests\\":"tests/"
         }
     }
 }
