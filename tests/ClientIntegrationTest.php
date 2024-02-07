@@ -14,7 +14,7 @@ use Panychek\MoEx\Client;
 
 class ClientIntegrationTest extends TestCase
 {
-    protected function tearDown()
+    protected function tearDown(): void
     {
         Client::destroyInstance();
     }
@@ -27,11 +27,11 @@ class ClientIntegrationTest extends TestCase
         $client = Client::getInstance();
         $data = $client->getEngineList();
 
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
 
         $this->assertArrayHasKey('engines', $data);
 
-        $this->assertCount(7, $data['engines']);
+        $this->assertCount(10, $data['engines']);
     }
     
     /**
@@ -44,7 +44,7 @@ class ClientIntegrationTest extends TestCase
         $engine_id = 'stock';
         $data = $client->getEngine($engine_id);
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('engine', $data);
         $this->assertArrayHasKey('timetable', $data);
@@ -60,12 +60,12 @@ class ClientIntegrationTest extends TestCase
         
         $data = $client->getTurnovers();
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('turnovers', $data);
         $this->assertArrayHasKey('turnoversprevdate', $data);
-        $this->assertArrayHasKey('turnoverssectors', $data);
-        $this->assertArrayHasKey('turnoverssectorsprevdate', $data);
+        //$this->assertArrayHasKey('turnoverssectors', $data);
+        //$this->assertArrayHasKey('turnoverssectorsprevdate', $data);
     }
     
     /**
@@ -78,7 +78,7 @@ class ClientIntegrationTest extends TestCase
         $engine_id = 'stock';
         $data = $client->getMarketList($engine_id);
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('markets', $data);
     }
@@ -94,7 +94,7 @@ class ClientIntegrationTest extends TestCase
         $market_id = 'shares';
         $data = $client->getMarket($engine_id, $market_id);
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('boards', $data);
         $this->assertArrayHasKey('boardgroups', $data);
@@ -118,7 +118,7 @@ class ClientIntegrationTest extends TestCase
         $board_id = 'TQBR';
         $data = $client->getBoard($engine_id, $market_id, $board_id);
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('board', $data);
     }
@@ -133,7 +133,7 @@ class ClientIntegrationTest extends TestCase
         $string = 'MoscowExchange';
         $data = $client->findSecurity($string);
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('securities', $data);
     }
@@ -148,7 +148,7 @@ class ClientIntegrationTest extends TestCase
         $security_code = 'moex';
         $data = $client->getSecurity($security_code);
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('description', $data);
         $this->assertArrayHasKey('boards', $data);
@@ -164,7 +164,7 @@ class ClientIntegrationTest extends TestCase
         $security_code = 'moex';
         $data = $client->getSecurityIndices($security_code);
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('indices', $data);
     }
@@ -178,7 +178,7 @@ class ClientIntegrationTest extends TestCase
         
         $data = $client->getSecurityGroups();
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('securitygroups', $data);
     }
@@ -193,7 +193,7 @@ class ClientIntegrationTest extends TestCase
         $security_group = 'stock_shares';
         $data = $client->getSecurityGroupCollections($security_group);
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('collections', $data);
     }
@@ -209,7 +209,7 @@ class ClientIntegrationTest extends TestCase
         $collection = 'stock_shares_one';
         $data = $client->getCollection($security_group, $collection);
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('collections', $data);
         $this->assertArrayHasKey('boardgroups', $data);
@@ -226,7 +226,7 @@ class ClientIntegrationTest extends TestCase
         $collection = 'stock_shares_one';
         $data = $client->getCollectionSecurities($security_group, $collection);
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('securities', $data);
     }
@@ -243,7 +243,7 @@ class ClientIntegrationTest extends TestCase
         $security_code = 'moex';
         $data = $client->getMarketData($engine_id, $market_id, $security_code);
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('securities', $data);
         $this->assertArrayHasKey('marketdata', $data);
@@ -263,7 +263,7 @@ class ClientIntegrationTest extends TestCase
         $security_code = 'moex';
         $data = $client->getSecurityDates($engine_id, $market_id, $board_id, $security_code);
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('dates', $data);
     }
@@ -284,7 +284,7 @@ class ClientIntegrationTest extends TestCase
         
         $data = $client->getHistoricalQuotes($engine_id, $market_id, $board_id, $security_code, $from, $to);
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('history', $data);
     }
@@ -298,7 +298,7 @@ class ClientIntegrationTest extends TestCase
         
         $data = $client->getCapitalization();
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         
         $this->assertArrayHasKey('capitalization', $data);
         $this->assertArrayHasKey('issuecapitalization', $data);

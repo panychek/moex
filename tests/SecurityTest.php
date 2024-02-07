@@ -30,14 +30,15 @@ class SecurityTest extends TestCase
      */
     private $mock_handler = null;
     
-    protected function setUp() {
+    protected function setUp(): void
+    {
         $this->mock_handler = new MockHandler();
         
         $handler = HandlerStack::create($this->mock_handler);
         Client::setExtraOption('handler', $handler);
     }
     
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->mock_handler = null;
         
@@ -216,11 +217,11 @@ class SecurityTest extends TestCase
         $this->assertInstanceOf(Market::class, $security->getMarket());
         $this->assertInstanceOf(Board::class, $security->getBoard());
         
-        $this->assertInternalType('array', $security->getDates());
+        $this->assertIsArray( $security->getDates());
         $this->assertEquals(2, Client::getInstance()->getCounter());
         
         $indices = $security->getIndices();
-        $this->assertInternalType('array', $indices);
+        $this->assertIsArray($indices);
         
         foreach ($indices as $index) {
             $this->assertInstanceOf(Security::class, $index);
@@ -547,7 +548,7 @@ class SecurityTest extends TestCase
         $to = '2014-12-31';
         $data = $security->getHistoricalQuotes($from, $to);
         
-        $this->assertInternalType('array', $data);
+        $this->assertIsArray($data);
         $this->assertCount(250, $data);
         
         $this->assertArrayHasKey('2014-01-06', $data);

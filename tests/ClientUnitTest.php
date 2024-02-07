@@ -27,14 +27,15 @@ class ClientUnitTest extends TestCase
      */
     private $mock_handler = null;
     
-    protected function setUp() {
+    protected function setUp(): void
+    {
         $this->mock_handler = new MockHandler();
         
         $handler = HandlerStack::create($this->mock_handler);
         Client::setExtraOption('handler', $handler);
     }
     
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->mock_handler = null;
         
@@ -55,8 +56,7 @@ class ClientUnitTest extends TestCase
         
         $reflection = new \ReflectionClass($mock);
         $method = $reflection->getMethod('request');
-        $method->setAccessible(true);
-        
+
         $response = $method->invokeArgs($mock, array('invalid_uri'));
     }
     
@@ -73,8 +73,7 @@ class ClientUnitTest extends TestCase
         
         $reflection = new \ReflectionClass(Client::class);
         $method = $reflection->getMethod('getData');
-        $method->setAccessible(true);
-        
+
         $response = $method->invokeArgs($mock, array('uri'));
     }
     
@@ -96,11 +95,10 @@ class ClientUnitTest extends TestCase
         
         $reflection = new \ReflectionClass(Client::class);
         $method = $reflection->getMethod('getData');
-        $method->setAccessible(true);
-        
+
         $response = $method->invokeArgs($mock, array('uri'));
         
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
     }
     
     public function responseProvider()
@@ -180,7 +178,7 @@ class ClientUnitTest extends TestCase
             $this->assertEquals('value', $cookie->getValue());
         });
         
-        $this->assertInternalType('array', $client->getEngineList());
+        $this->assertIsArray($client->getEngineList());
     }
     
     /**

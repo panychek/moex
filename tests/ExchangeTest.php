@@ -28,14 +28,15 @@ class ExchangeTest extends TestCase
      */
     private $mock_handler = null;
     
-    protected function setUp() {
+    protected function setUp(): void
+    {
         $this->mock_handler = new MockHandler();
         
         $handler = HandlerStack::create($this->mock_handler);
         Client::setExtraOption('handler', $handler);
     }
     
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->mock_handler = null;
         
@@ -71,7 +72,7 @@ class ExchangeTest extends TestCase
         $exchange = Exchange::getInstance();
         
         $engines = $exchange->getEngines();
-        $this->assertInternalType('array', $engines);
+        $this->assertIsArray($engines);
         foreach ($engines as $engine) {
             $this->assertInstanceOf(Engine::class, $engine);
         }
@@ -79,7 +80,7 @@ class ExchangeTest extends TestCase
         $this->assertEquals(1, Client::getInstance()->getCounter());
         
         $security_groups = $exchange->getSecurityGroups();
-        $this->assertInternalType('array', $security_groups);
+        $this->assertIsArray($security_groups);
         foreach ($security_groups as $security_group) {
             $this->assertInstanceOf(SecurityGroup::class, $security_group);
         }

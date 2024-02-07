@@ -2,13 +2,13 @@
 <phpunit bootstrap="./vendor/autoload.php"
          colors="true">
   <testsuites>
-    <testsuite>
+    <testsuite name="MoexIssClientTestSuite">
       <directory>tests</directory>
     </testsuite>
   </testsuites>
-  <filter>
-    <whitelist suffix=".php" processUncoveredFilesFromWhitelist="true">
-      <directory>src</directory>
-    </whitelist>
-  </filter>
+  <coverage>
+    <include>
+      <directory suffix=".php">.</directory>
+    </include>
+  </coverage>
 </phpunit>

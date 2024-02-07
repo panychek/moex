@@ -25,14 +25,15 @@ class MarketTest extends TestCase
      */
     private $mock_handler = null;
     
-    protected function setUp() {
+    protected function setUp(): void
+    {
         $this->mock_handler = new MockHandler();
         
         $handler = HandlerStack::create($this->mock_handler);
         Client::setExtraOption('handler', $handler);
     }
     
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->mock_handler = null;
         
@@ -82,7 +83,7 @@ class MarketTest extends TestCase
         $market = Market::getInstance($market_id, $engine_id);
         
         $boards = $market->getBoards();
-        $this->assertInternalType('array', $boards);
+        $this->assertIsArray($boards);
         
         $this->assertEquals(1, Client::getInstance()->getCounter());
     }
