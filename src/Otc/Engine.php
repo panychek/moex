@@ -2,7 +2,7 @@
 
 namespace Panychek\MoEx\Otc;
 
-class Engine
+class Engine extends \Panychek\MoEx\Engine
 {
     /**
      * @var string
